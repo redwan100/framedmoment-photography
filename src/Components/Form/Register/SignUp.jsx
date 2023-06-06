@@ -1,10 +1,35 @@
 import Lottie from "lottie-react";
 import signUpImg from '../../../assets/FormImg/signUp'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import SocialLogin from "../../../Pages/Shared/SocialLogin/SocialLogin";
-import Button from "../../../Pages/Shared/Buttons/Button";
+import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../Context/ContextProvider";
+
 
 const SignUp = () => {
+   const [error, setError] = useState("");
+   const { createUser, updateUserProfile } = useContext(AuthContext);
+
+   const {
+     register,
+     handleSubmit,
+     reset,
+     formState: { errors },
+   } = useForm();
+
+   const onSubmit = (data) => {
+     console.log(data);
+     createUser(data.email, data.password)
+       .then((result) => {
+         const loggedUser = result.user;
+
+         updateUserProfile(data.name, data.photoUrl)
+           .then(() => {   })
+           .catch((err) => setError(err));
+       })
+       .catch((err) => setError(err));
+   };
   return (
     <>
       <div className="grid md:grid-cols-2 items-center min-h-[calc(100vh-200px)]">
@@ -16,7 +41,7 @@ const SignUp = () => {
           <h1 className="text-center text-4xl font-bold uppercase mb-4">
             Sign up
           </h1>
-          <form className="">
+          <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -29,7 +54,11 @@ const SignUp = () => {
                 id="name"
                 type="text"
                 placeholder="Enter your name"
+                {...register("name", { required: true })}
               />
+              <small className="text-red-500">
+                {errors.name && <span>Please type your name </span>}
+              </small>
             </div>
 
             <div className="mb-4">
@@ -44,7 +73,11 @@ const SignUp = () => {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
+                {...register("email", { required: true ,},)}
               />
+              <small className="text-red-500">
+                {errors.email && <span>Please type your email</span>}
+              </small>
             </div>
             <div className="mb-6">
               <label
@@ -58,6 +91,34 @@ const SignUp = () => {
                 id="password"
                 type="password"
                 placeholder="Enter your password"
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  maxLength: 10,
+                })}
+                {...register("password", { required: true })}
+              />
+
+              <small className="text-red-500">
+                {errors.password && (
+                  <span>Please type your password at least 6 character</span>
+                )}
+              </small>
+            </div>
+
+            <div className="mb-6">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="confirm-password"
+              >
+                Confirm-password
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                id="confirm-password"
+                type="password"
+                placeholder="Confirm password"
+                {...register("confirm-password", { required: true })}
               />
             </div>
 
@@ -75,7 +136,7 @@ const SignUp = () => {
                 placeholder="Photo Url"
               />
             </div>
-
+            {error && <p className="text-error font-medium">{error}</p>}
             <div className="">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
