@@ -6,10 +6,11 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/ContextProvider";
 import { toast } from "react-hot-toast";
-
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 const SignIn = () => {
     const [error, setError] = useState("");
+    const [showPass, setShowPass] = useState(false)
     const { userSignIn } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
@@ -66,20 +67,29 @@ const SignIn = () => {
                 {errors.email && <span>Please type your email</span>}
               </small>
             </div>
-            <div className="mb-6">
+            <div className="mb-6 relative">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
               </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                {...register("password", { required: true })}
-              />
+              <div className="relative">
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline relative"
+                  id="password"
+                  type={showPass ? "text" : "password"}
+                  placeholder="Enter your password"
+                  {...register("password", { required: true })}
+                />
+
+                <span
+                  className="absolute top-3 right-4 cursor-pointer"
+                  onClick={() => setShowPass(!showPass)}
+                >
+                  {showPass ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </span>
+              </div>
 
               <small className="text-red-500">
                 {errors.email && <span>Please type your password</span>}
@@ -90,7 +100,7 @@ const SignIn = () => {
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
                 type="submit"
               >
-               Sign in
+                Sign in
               </button>
             </div>
             <small className="pt-3 block">

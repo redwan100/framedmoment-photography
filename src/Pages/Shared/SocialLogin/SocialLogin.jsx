@@ -8,13 +8,12 @@ const SocialLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { googleSignIn } = useContext(AuthContext);
-
-  const from = location.state?.from?.pathname || "/";
+      const from = location.state?.from?.pathname || "/";
 
   const handleGoogleSingIn = () => {
     googleSignIn().then((result) => {
       const user = result.user;
-      console.log(user);
+      navigate(from, {replace: true})
     });
   };
   return (

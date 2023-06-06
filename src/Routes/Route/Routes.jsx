@@ -5,6 +5,9 @@ import SignIn from "../../Components/Form/Login/SignIn";
 import SignUp from "../../Components/Form/Register/SignUp";
 import About from "../../Components/About";
 import PrivetRoute from "../PrivetRouts/PrivetRoute";
+import Instructors from "../../Pages/Instrutors/Instructors";
+import Classes from "../../Pages/Classes/Classes";
+import Dashboard from "../../Pages/Dahsboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -16,14 +19,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "about",
-        element: (
-          <PrivetRoute>
-            
-            <About />
-          </PrivetRoute>
-        ),
+        path: "instructors",
+        element: <Instructors />,
       },
+      
+      {
+        path: "classes",
+        element: <Classes />,
+      },
+      
+      {
+        path: "dashboard",
+        element: <Dashboard />,
+      },
+      
       {
         path: "sign-up",
         element: <SignUp />,
