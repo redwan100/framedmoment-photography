@@ -14,21 +14,7 @@ const SocialLogin = () => {
   const handleGoogleSingIn = () => {
     googleSignIn().then((result) => {
       const user = result.user;
-      const userInfo = {
-        name: user.displayName,
-        email: user.email,
-      };
-      fetch("http://localhost:5000/users", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      })
-        .then((response) => response.json())
-        .then((result) => console.log(result))
-        .catch((error) => console.log("error", error));
-      navigate(from, { replace: true });
+      console.log(user);
     });
   };
   return (

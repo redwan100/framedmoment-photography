@@ -1,21 +1,23 @@
 import Lottie from "lottie-react";
 import signUpImg from '../../../assets/FormImg/signUp'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useLocation, useNavigate} from 'react-router-dom'
 import SocialLogin from "../../../Pages/Shared/SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/ContextProvider";
+import { toast } from "react-hot-toast";
 
 
 const SignUp = () => {
    const [error, setError] = useState("");
    const { createUser, updateUserProfile } = useContext(AuthContext);
-
+   const navigate = useNavigate()
+   const location = useLocation()
+  const from = location.state?.from?.pathname || "/";
    const {
      register,
      handleSubmit,
-     reset,
-     formState: { errors },
+    //  formState: { errors },
    } = useForm();
 
    const onSubmit = (data) => {
@@ -25,10 +27,18 @@ const SignUp = () => {
          const loggedUser = result.user;
 
          updateUserProfile(data.name, data.photoUrl)
-           .then(() => {   })
-           .catch((err) => setError(err));
+           .then(() => {
+              toast.success("Successfully user create", { duration: 2000, position: "top-center" }) 
+
+              navigate(from, {replace:true,})
+            })
+           .catch((err) => {
+            console.log(err);
+            setError(err);
+           });
        })
        .catch((err) => setError(err));
+    
    };
   return (
     <>
@@ -56,9 +66,9 @@ const SignUp = () => {
                 placeholder="Enter your name"
                 {...register("name", { required: true })}
               />
-              <small className="text-red-500">
+              {/* <small className="text-red-500">
                 {errors.name && <span>Please type your name </span>}
-              </small>
+              </small> */}
             </div>
 
             <div className="mb-4">
@@ -73,11 +83,11 @@ const SignUp = () => {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
-                {...register("email", { required: true ,},)}
+                {...register("email", { required: true })}
               />
-              <small className="text-red-500">
+              {/* <small className="text-red-500">
                 {errors.email && <span>Please type your email</span>}
-              </small>
+              </small> */}
             </div>
             <div className="mb-6">
               <label
@@ -99,11 +109,11 @@ const SignUp = () => {
                 {...register("password", { required: true })}
               />
 
-              <small className="text-red-500">
+              {/* <small className="text-red-500">
                 {errors.password && (
                   <span>Please type your password at least 6 character</span>
                 )}
-              </small>
+              </small> */}
             </div>
 
             <div className="mb-6">
@@ -134,9 +144,10 @@ const SignUp = () => {
                 id="name"
                 type="photo"
                 placeholder="Photo Url"
+                {...register("photoUrl", { required: true })}
               />
             </div>
-            {error && <p className="text-error font-medium">{error}</p>}
+            {error.photoUrl && <p className="text-error font-medium">{error}</p>}
             <div className="">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"

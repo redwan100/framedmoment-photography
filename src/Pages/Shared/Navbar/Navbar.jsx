@@ -1,10 +1,13 @@
 import { useContext } from 'react';
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { AuthContext } from '../../../Context/ContextProvider';
 const Navbar = () => {
+  const navigate = useNavigate()
   const {user, logOut} = useContext(AuthContext)
    const handleLogOut = () => {
-     logOut().then(() => {});
+     logOut().then(() => {
+      navigate('/sign-in')
+     });
    };
    
     const options = (
@@ -13,13 +16,13 @@ const Navbar = () => {
           <Link>Home</Link>
         </li>
         <li>
-          <Link>About</Link>
+          <Link to={'/about'}>About</Link>
         </li>
         <li>
           {user ? (
             <button onClick={handleLogOut}>Log out</button>
           ) : (
-            <Link to={"/sign-up"}>Login</Link>
+            <Link to={"/sign-in"}>Login</Link>
           )}
         </li>
       </>

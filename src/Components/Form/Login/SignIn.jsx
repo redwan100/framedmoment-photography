@@ -1,8 +1,40 @@
 import Lottie from "lottie-react";
 import signInImg from "../../../assets/FormImg/signIn.json";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../../Pages/Shared/SocialLogin/SocialLogin";
+import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../Context/ContextProvider";
+import { toast } from "react-hot-toast";
+
+
 const SignIn = () => {
+    const [error, setError] = useState("");
+    const { userSignIn } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
+
+       const {
+         register,
+         handleSubmit,
+         formState: { errors },
+       } = useForm();
+
+       const onSubmit = (data) => {
+        userSignIn(data.email, data.password)
+          .then((result) => {
+            const user = result.user;
+            toast.success("Successfully Login", {
+              duration: 2000,
+              position: "top-center",
+            });
+            navigate(from, { replace: true });
+          })
+          .catch((err) => setError(err.message));
+       };
+
+
   return (
     <div>
       <div className="grid md:grid-cols-2 items-center min-h-[calc(100vh-200px)]">
@@ -11,22 +43,10 @@ const SignIn = () => {
         </div>
 
         <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20 border-gradient">
-            <h1 className="text-center text-4xl font-bold uppercase mb-4">Sign in</h1>
-          <form className="">
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="name"
-              >
-                Name
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="name"
-                type="text"
-                placeholder="Enter your name"
-              />
-            </div>
+          <h1 className="text-center text-4xl font-bold uppercase mb-4">
+            Sign in
+          </h1>
+          <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -39,7 +59,12 @@ const SignIn = () => {
                 id="email"
                 type="email"
                 placeholder="Enter your email"
+                {...register("email", { required: true })}
               />
+
+              <small className="text-red-500">
+                {errors.email && <span>Please type your email</span>}
+              </small>
             </div>
             <div className="mb-6">
               <label
@@ -53,19 +78,27 @@ const SignIn = () => {
                 id="password"
                 type="password"
                 placeholder="Enter your password"
+                {...register("password", { required: true })}
               />
+
+              <small className="text-red-500">
+                {errors.email && <span>Please type your password</span>}
+              </small>
             </div>
             <div className="">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-                type="button"
+                type="submit"
               >
-                Register
+               Sign in
               </button>
             </div>
             <small className="pt-3 block">
               Dont have an account?{" "}
-              <Link to='/sign-up' className="text-blue-500 font-medium hover:underline">
+              <Link
+                to="/sign-up"
+                className="text-blue-500 font-medium hover:underline"
+              >
                 Sign up
               </Link>
             </small>
