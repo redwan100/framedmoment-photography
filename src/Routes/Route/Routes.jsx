@@ -7,7 +7,10 @@ import About from "../../Components/About";
 import PrivetRoute from "../PrivetRouts/PrivetRoute";
 import Instructors from "../../Pages/Instrutors/Instructors";
 import Classes from "../../Pages/Classes/Classes";
-import Dashboard from "../../Pages/Dahsboard/Dashboard";
+import Dashboard from "../../Dashboard/Dashboared";
+import MyClasses from "../../Pages/Instrutors/MyClasses/MyClasses";
+import AddClass from "../../Pages/Instrutors/AddClass/AddClass";
+
 
 const router = createBrowserRouter([
   {
@@ -27,12 +30,7 @@ const router = createBrowserRouter([
         path: "classes",
         element: <Classes />,
       },
-      
-      {
-        path: "dashboard",
-        element: <Dashboard />,
-      },
-      
+            
       {
         path: "sign-up",
         element: <SignUp />,
@@ -43,6 +41,20 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'dashboard',
+    element: <Dashboard />,
+    children:[
+      {
+        path:'my-classes',
+        element:<MyClasses />
+      },
+      {
+        path:'add-class',
+        element:<AddClass />
+      },
+    ]
+  }
 ]);
 
 export default router

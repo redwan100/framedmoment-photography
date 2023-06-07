@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/ContextProvider";
+import { toast } from "react-hot-toast";
 
 const SocialLogin = () => {
   const navigate = useNavigate();
@@ -13,6 +14,25 @@ const SocialLogin = () => {
   const handleGoogleSingIn = () => {
     googleSignIn().then((result) => {
       const user = result.user;
+       const userInfo = {
+         name: user.displayName,
+         email: user.email,
+         photo:user.photoURL
+       };
+
+      
+       fetch("http://localhost:5000/users", {
+         method: "POST",
+         headers: {
+           "content-type": "application/json",
+         },
+         body: JSON.stringify(userInfo),
+       })
+         .then((response) => response.json())
+         .then((result) => console.log(result))
+         .catch((error) => console.log("error", error));
+
+         toast.success('Successfully Login')
       navigate(from, {replace: true})
     });
   };

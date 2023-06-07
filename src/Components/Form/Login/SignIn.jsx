@@ -84,7 +84,7 @@ const SignIn = () => {
                 />
 
                 <span
-                  className="absolute top-3 right-4 cursor-pointer"
+                  className="absolute top-3 right-4 cursor-pointer opacity-60"
                   onClick={() => setShowPass(!showPass)}
                 >
                   {showPass ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
