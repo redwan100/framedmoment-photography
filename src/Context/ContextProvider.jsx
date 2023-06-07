@@ -43,6 +43,7 @@ const ContextProvider = ({ children }) => {
   };
 
   const updateUserProfile = (name, photoUrl) => {
+    setLoading(true)
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photoUrl,

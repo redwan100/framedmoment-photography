@@ -1,5 +1,6 @@
 import { SiGoogleclassroom } from "react-icons/si";
 import { GrInfo } from "react-icons/gr";
+import { BiHomeAlt2 } from "react-icons/bi";
 import { Link, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
@@ -10,6 +11,7 @@ const Dashboard = () => {
       <div className="drawer-content flex flex-col items-center justify-center">
         {/* Page content here */}
         <Outlet />
+        
         <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
@@ -35,8 +37,19 @@ const Dashboard = () => {
               </li>
             </>
           ) : (
-            ""
+            <li>
+              <Link to={"/"}>
+                <SiGoogleclassroom /> My Classes
+              </Link>
+            </li>
           )}
+
+          <div className="divider"></div>
+          <li>
+            <Link to={"/"}>
+              <BiHomeAlt2 />Home
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
