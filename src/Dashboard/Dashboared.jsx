@@ -1,17 +1,18 @@
 import { SiGoogleclassroom } from "react-icons/si";
 import { GrInfo } from "react-icons/gr";
 import { BiHomeAlt2 } from "react-icons/bi";
+import { HiOutlineUsers } from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-    const isInstructor = true;
+    const isInstructor = false;
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col items-center justify-center">
         {/* Page content here */}
         <Outlet />
-        
+
         <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
@@ -32,22 +33,30 @@ const Dashboard = () => {
               </li>
               <li>
                 <Link to={"/dashboard/my-classes"}>
-                  <SiGoogleclassroom /> My Classes
+                  <SiGoogleclassroom /> Manage Classes
                 </Link>
               </li>
             </>
           ) : (
-            <li>
-              <Link to={"/"}>
-                <SiGoogleclassroom /> My Classes
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link to={"/dashboard/manage-class"}>
+                  <HiOutlineUsers /> Manage Class
+                </Link>
+              </li>
+              <li>
+                <Link to={"/dashboard/manage-user"}>
+                  <HiOutlineUsers /> Manage User
+                </Link>
+              </li>
+            </>
           )}
 
           <div className="divider"></div>
           <li>
             <Link to={"/"}>
-              <BiHomeAlt2 />Home
+              <BiHomeAlt2 />
+              Home
             </Link>
           </li>
         </ul>

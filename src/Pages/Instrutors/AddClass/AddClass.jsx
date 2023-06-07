@@ -1,8 +1,11 @@
-import React, { useContext } from 'react'
+import  { useContext } from 'react'
 import { AuthContext } from '../../../Context/ContextProvider';
 import { useForm } from 'react-hook-form';
 import axios from 'axios'
 import Loading from '../../Shared/Loading/Loading';
+import toast from 'react-hot-toast'
+
+
 
 const img_hosting_token = import.meta.env.VITE_UPLOAD_TOKEN;
 
@@ -17,6 +20,7 @@ const formData = new FormData();
   const {
     register,
     handleSubmit,
+    reset
   } = useForm();
 
   const onSubmit = (data) => {
@@ -35,10 +39,17 @@ const formData = new FormData();
              ...data,
              status: "pending",
              image,
+             price: parseFloat(data.price)
            };
             axios
               .post("http://localhost:5000/class", classInfo)
-              .then((response) => console.log(response))
+              .then((response) => {
+                console.log(response);
+                if(response.data.insertedId){
+                  toast.success('Successfully added your class',{duration:2000})
+                  reset()
+                }
+              })
               .catch((error) => console.log("error", error));
         }
   

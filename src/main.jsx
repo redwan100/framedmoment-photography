@@ -6,11 +6,20 @@ import router from './Routes/Route/Routes.jsx'
 import ContextProvider from './Context/ContextProvider'
 import { Toaster } from "react-hot-toast";
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient()
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ContextProvider>
-      <RouterProvider router={router} />
-    </ContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <ContextProvider>
+        <RouterProvider router={router} />
+      </ContextProvider>
+    </QueryClientProvider>
     <Toaster />
   </React.StrictMode>
 );
