@@ -1,15 +1,36 @@
-import {LuTrash} from 'react-icons/lu'
-const Row = ({course, index}) => {
-       const {
-         __id,
-         className,
-         instructorName,
-         availableSeat,
-         price,
-         image,
-       } = course;
- 
-    
+import axios from "axios";
+import Swal from "sweetalert2";
+
+import { LuTrash } from "react-icons/lu";
+const Row = ({ course, index }) => {
+  const { _id, className, instructorName, availableSeat, price, image } =
+    course;
+
+    // TODO: tanStackQuery 
+
+  const handleDeleteClass = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:5000/selectedClasses/${id}`)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.deletedCount > 0) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          });
+      }
+    });
+  };
+
   return (
     <>
       <tr className="even:bg-slate-50 odd:bg-slate-200 hover:bg-slate-300">
@@ -23,19 +44,21 @@ const Row = ({course, index}) => {
         </td>
         <td>{className}</td>
         <td>{instructorName}</td>
-        <td className='text-center'>{availableSeat}</td>
+        <td className="text-center">{availableSeat}</td>
         <td className="text-right">${price}</td>
         <th className="">
-          <button className="bg-orange-500 text-white py-1 px-2 rounded-md hover:bg-orange-600">Pay</button>
+          <button className="bg-orange-500 text-white py-1 px-2 rounded-md hover:bg-orange-600">
+            Pay
+          </button>
         </th>
-        <th className="">
+        <th className="" onClick={() => handleDeleteClass(_id)}>
           <button className="w-8 h-8 grid place-content-center rounded-md bg-red-500 text-white border border-red-500 hover:bg-transparent hover:text-red-500">
-            <LuTrash size={20}/>
+            <LuTrash size={20} />
           </button>
         </th>
       </tr>
     </>
   );
-}
+};
 
-export default Row
+export default Row;
