@@ -1,10 +1,20 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from 'sweetalert2'
 const Row = ({index, user}) => {
     const {_id, name, email,photo} = user;
-    const [role, setRole] = useState('')
+    const [role, setRole] = useState([])
  
+
+    useEffect(() => {
+      axios.get('http://localhost:5000/all-users')
+      .then(res => {
+       setRole(res?.data);
+       
+      })
+    },[])
+    
+    
     const handleAdminInstructor = (text) => {
         setRole(text)
         Swal.fire({
@@ -37,7 +47,10 @@ const Row = ({index, user}) => {
           }
         });
     }
-  return (
+    
+    
+    
+    return (
     <>
       <tr className="odd:bg-slate-50 even:bg-slate-200 hover:bg-slate-300">
         <th>{index + 1} </th>

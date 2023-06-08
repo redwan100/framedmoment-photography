@@ -18,8 +18,7 @@ const MangeUser = () => {
         return <Loading />
     }
   return (
-    <div>
-      All users: {users.length}
+    <>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -40,7 +39,7 @@ const MangeUser = () => {
     
         </table>
       </div>
-    </div>
+    </>
   );
 }
 

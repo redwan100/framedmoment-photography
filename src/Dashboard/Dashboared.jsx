@@ -50,7 +50,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <Link to={"/dashboard/manage-user"}>
-                  <HiOutlineUsers /> Manage classes
+                  <HiOutlineUsers /> Manage users
                 </Link>
               </li>
             </>
