@@ -35,7 +35,7 @@ const MangeUser = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => <Row key={user._id} user={user} index={index}/>)}
+            {users?.map((user, index) => <Row key={user._id} user={user} index={index}/>)}
           </tbody>
     
         </table>
