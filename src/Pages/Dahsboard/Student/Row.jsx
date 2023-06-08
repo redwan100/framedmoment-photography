@@ -4,11 +4,9 @@ const Row = ({course, index}) => {
          __id,
          className,
          instructorName,
-         instructorEmail,
          availableSeat,
          price,
          image,
-         status,
        } = course;
  
     
@@ -25,9 +23,8 @@ const Row = ({course, index}) => {
         </td>
         <td>{className}</td>
         <td>{instructorName}</td>
-        <td>{instructorEmail}</td>
-        <td>{availableSeat}</td>
-        <td className="text-right">{price}</td>
+        <td className='text-center'>{availableSeat}</td>
+        <td className="text-right">${price}</td>
         <th className="">
           <button className="bg-orange-500 text-white py-1 px-2 rounded-md hover:bg-orange-600">Pay</button>
         </th>
