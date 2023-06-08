@@ -35,10 +35,10 @@ const SignUp = () => {
               const userInfo={
                 name: data.name,
                 email: data.email,
-                photo:loggedUser?.photoURL
+                photo:loggedUser?.photoURL,
+                role:'student'
               }
 
-              console.log(userInfo);
               fetch("http://localhost:5000/users", {
                 method:"POST",
                 headers: {

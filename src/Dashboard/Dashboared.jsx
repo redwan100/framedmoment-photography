@@ -5,7 +5,7 @@ import { HiOutlineUsers } from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-    const isUser = 'admin';
+    const isUser = 'student';
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -24,7 +24,7 @@ const Dashboard = () => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
-          {isUser === 'instructor' && (
+          {isUser === "instructor" && (
             <>
               <li>
                 <Link to={"/dashboard/add-class"}>
@@ -37,11 +37,9 @@ const Dashboard = () => {
                 </Link>
               </li>
             </>
-          ) }
+          )}
 
-
-          {
-            isUser === 'admin' && (
+          {isUser === "admin" && (
             <>
               <li>
                 <Link to={"/dashboard/manage-class"}>
@@ -54,8 +52,22 @@ const Dashboard = () => {
                 </Link>
               </li>
             </>
-          )
-          }
+          )}
+
+          {isUser === "student" && (
+            <>
+              <li>
+                <Link to={"/dashboard/my-select-class"}>
+                  <HiOutlineUsers /> My select class
+                </Link>
+              </li>
+              <li>
+                <Link to={"/dashboard/my-enrolled-class"}>
+                  <HiOutlineUsers /> My Enrolled class
+                </Link>
+              </li>
+            </>
+          )}
 
           <div className="divider"></div>
           <li>

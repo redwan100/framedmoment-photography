@@ -1,12 +1,60 @@
-import {AiOutlineShoppingCart} from 'react-icons/ai'
-const ClassItem = ({classes}) => {
+import { useContext } from "react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AuthContext } from "../../Context/ContextProvider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from 'react-hot-toast'
 
-    const {_id,className, instructorName, image, price, availableSeat} = classes;
 
 
+const ClassItem = ({ classes }) => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { _id, className, instructorName, image, price, availableSeat } =
+    classes;
+
+  const handleBuyCourse = (course) => {
+    /* ------------------ condition check user loggedIn or not ------------------ */
+    if (!user) {
+      Swal.fire({
+        title: "First login",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Login Now",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/sign-in");
+        }
+      });
+
+     
+    }
+
+     const selectClassInfo = {
+       
+       course_id:course._id,
+       className, 
+       instructorName, 
+       image, 
+       price, 
+       availableSeat
+
+     };
+
+     axios
+       .post("http://localhost:5000/userSelectedClass", selectClassInfo)
+       .then((res) => {
+         if(res.data.insertedId){
+          toast.success('Successfully buy your course',{duration:1500})
+         }
+       });
+  };
   return (
     <div
-      className={`card card-side grid lg:grid-cols-2 shadow-xl bg-slate-50 ${
+      className={`card card-side grid lg:grid-cols-2 shadow-xl ${
         availableSeat == 0 && "bg-red-100 text-red-500 border border-red-300"
       }`}
     >
@@ -30,7 +78,11 @@ const ClassItem = ({classes}) => {
             <h3 className="font-medium">Seat: {availableSeat}</h3>
           </div>
           <div className="mt-auto">
-            <button className="bg-violet-700 text-white py-2 px-4 rounded-md flex items-center gap-2 ml-auto hover:bg-violet-800">
+            <button
+              disabled={availableSeat == 0}
+              className="btn bg-violet-700 text-white py-2 px-4 rounded-md flex items-center gap-2 ml-auto hover:bg-violet-800"
+              onClick={()=>handleBuyCourse(classes)}
+            >
               Buy Course <AiOutlineShoppingCart />
             </button>
           </div>
@@ -38,6 +90,6 @@ const ClassItem = ({classes}) => {
       </div>
     </div>
   );
-}
+};
 
-export default ClassItem
+export default ClassItem;
