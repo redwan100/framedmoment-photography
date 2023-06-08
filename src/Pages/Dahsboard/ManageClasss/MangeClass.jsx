@@ -12,7 +12,7 @@ const MangeClass = () => {
          setLoading(false);
        });
      }, []);
-     
+
      if (loading) {
        return <Loading />;
      }

@@ -1,7 +1,11 @@
-import React from 'react'
+import axios from "axios";
+import Swal from "sweetalert2";
 
+// 1 - click approve button status update, TODO: Done;
+// 2 - Deny and the Approve button will become disabled. TODO: Done;
 const Row = ({classList, index}) => {
     const {
+        _id,
       className,
       instructorName,
       instructorEmail,
@@ -10,7 +14,41 @@ const Row = ({classList, index}) => {
       image,
       status,
     } = classList[0];
-    console.log(classList);
+    
+     const handleApproveDeny = (text) => {
+       Swal.fire({
+         title: "Are you sure?",
+         // text: "You won't be able to revert this!",
+         icon: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#3085d6",
+         cancelButtonColor: "#d33",
+         confirmButtonText: `Yes Make It ${text}`,
+       }).then((result) => {
+         if (result.isConfirmed) {
+           axios
+             .patch(`http://localhost:5000/class-status/${_id}`, { text })
+             .then((res) => {
+               if (res.data.modifiedCount > 0) {
+                 Swal.fire({
+                   position: "top-center",
+                   icon: "success",
+                   title: ` Post is ${text}`,
+                   showConfirmButton: false,
+                   timer: 1500,
+                 });
+               }
+
+            })
+             .catch((err) => {
+                 console.log(err);
+                });
+         }
+       });
+     };
+
+
+
   return (
     <>
       <tr className="odd:bg-slate-50 even:bg-slate-200 hover:bg-slate-300">
@@ -28,12 +66,32 @@ const Row = ({classList, index}) => {
         <td>{availableSeat}</td>
         <td>{price}</td>
         <th className="">
-            <button className="btn btn-xs">{status}</button>
+          <button
+            disabled={status === 'denied'}
+            className={`btn btn-xs ${
+              status === "pending"  && "bg-red-200 text-red-500"
+            } ${status === "approved" && "bg-green-200 text-green-500"}`}
+
+          >
+            {status}
+          </button>
         </th>
         <th className="">
           <div className="btn-group">
-            <button className="btn btn-xs">Approve</button>
-            <button className="btn btn-xs">Denny</button>
+            <button
+              className="btn btn-xs"
+              disabled={status === "approved" || status === "denied"}
+              onClick={() => handleApproveDeny("approved")}
+            >
+              Approve
+            </button>
+            <button
+              className="btn btn-xs"
+              disabled={status === "approved" || status === "denied"}
+              onClick={() => handleApproveDeny("denied")}
+            >
+              Deny
+            </button>
             <button className="btn btn-xs">Feedback</button>
           </div>
         </th>

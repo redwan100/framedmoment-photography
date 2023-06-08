@@ -1,23 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Swal from 'sweetalert2'
 const Row = ({index, user}) => {
-    const {_id, name, email,photo} = user;
-    const [role, setRole] = useState([])
+    const {_id, name, email,photo,role} = user;
  
 
-    useEffect(() => {
-      axios.get('http://localhost:5000/all-users')
-      .then(res => {
-       setRole(res?.data);
-       
-      })
-    },[])
     
-    
-    const handleAdminInstructor = (text) => {
-        setRole(text)
-        Swal.fire({
+    const handleAdminInstructor = (text) => {        Swal.fire({
           title: "Are you sure?",
           // text: "You won't be able to revert this!",
           icon: "warning",
@@ -29,13 +18,13 @@ const Row = ({index, user}) => {
           if (result.isConfirmed) {
 
             axios
-              .patch(`http://localhost:5000/update-user-role/${_id}`, { text })
+              .patch(`http://localhost:5000/user/admin/${_id}`, { text })
               .then((res) => {
                 if (res.data.modifiedCount > 0) {
                   Swal.fire({
                     position: "top-center",
                     icon: "success",
-                    title: ` Now is ${text}`,
+                    title: `${name} Now is ${text}`,
                     showConfirmButton: false,
                     timer: 1500,
                   });
@@ -72,7 +61,7 @@ const Row = ({index, user}) => {
             Instructor
           </button>
           <button
-          disabled={role === 'admin'}
+          disabled={role === 'admin' }
             className="btn btn-ghost btn-xs"
             onClick={() => handleAdminInstructor("admin")}
           >
