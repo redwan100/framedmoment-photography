@@ -1,8 +1,8 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 
-// 1 - click approve button status update, TODO: Done;
-// 2 - Deny and the Approve button will become disabled. TODO: Done;
+// TODO: tanStackQuery 
+
 const Row = ({classList, index}) => {
     const {
         _id,
@@ -13,7 +13,8 @@ const Row = ({classList, index}) => {
       price,
       image,
       status,
-    } = classList[0];
+    } = classList;
+    console.log(instructorEmail);
     
      const handleApproveDeny = (text) => {
        Swal.fire({

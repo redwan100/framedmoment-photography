@@ -83,7 +83,7 @@ const formData = new FormData();
                 id="class-name"
                 type="text"
                 placeholder="Enter your class name"
-                {...register("class-name", { required: true })}
+                {...register("className", { required: true })}
               />
             </div>
 
@@ -97,11 +97,11 @@ const formData = new FormData();
 
               <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="instructor-name"
+                id="instructorName"
                 type="text"
                 value={user?.displayName}
                 placeholder="Enter your name"
-                {...register("instructor-name", { required: true })}
+                {...register("instructorName", { required: true })}
               />
             </div>
             <div className="mb-4">
@@ -117,7 +117,7 @@ const formData = new FormData();
                 type="email"
                 value={user?.email}
                 placeholder="Enter your email"
-                {...register("instructor-email", { required: true })}
+                {...register("instructorEmail", { required: true })}
               />
             </div>
 
@@ -133,8 +133,7 @@ const formData = new FormData();
                 id="available-seat"
                 type="number"
                 placeholder="Enter your seats"
-                {...register("available-seat")}
-                {...register("available-seat", { required: true })}
+                {...register("availableSeat", { required: true })}
               />
             </div>
 
@@ -161,13 +160,7 @@ const formData = new FormData();
               >
                 Class image
               </label>
-              {/* <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="image"
-                type="photo"
-                placeholder="Photo Url"
-                {...register("image", { required: true })}
-              /> */}
+             
 
               <input
                 type="file"

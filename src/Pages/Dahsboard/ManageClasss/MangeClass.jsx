@@ -10,7 +10,8 @@ const MangeClass = () => {
        axios.get("http://localhost:5000/all-classes").then((data) => {
          setClasses(data.data);
          setLoading(false);
-       });
+       })
+       .catch(err => console.log(err))
      }, []);
 
      if (loading) {
@@ -35,8 +36,8 @@ const MangeClass = () => {
             </tr>
           </thead>
           <tbody>
-            {classes?.map((user, index) => (
-              <Row key={user._id} classList={classes} index={index} />
+            {classes.map((user, index) => (
+              <Row key={user._id} classList={user} index={index} />
             ))}
           </tbody>
         </table>

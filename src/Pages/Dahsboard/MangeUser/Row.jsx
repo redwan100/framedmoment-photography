@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useEffect } from "react";
 import Swal from 'sweetalert2'
+
+
 const Row = ({index, user}) => {
     const {_id, name, email,photo,role} = user;
  
-
     
     const handleAdminInstructor = (text) => {        Swal.fire({
           title: "Are you sure?",
