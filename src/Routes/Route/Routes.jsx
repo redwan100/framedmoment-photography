@@ -47,16 +47,18 @@ const router = createBrowserRouter([
   },
   {
     path:'dashboard',
-    element: <Dashboard />,
+    element: <PrivetRoute>
+      <Dashboard />,
+    </PrivetRoute>,
     children:[
       {
         path:'my-classes',
         element:<MyClasses />
       },
-      {
-        path:'add-class',
-        element:<AddClass />
-      },
+      // {
+      //   path:'add-class',
+      //   element:<AddClass />
+      // },
       {
         path:'add-class',
         element:<AddClass />

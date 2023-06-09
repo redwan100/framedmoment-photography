@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/ContextProvider";
+import { toast } from "react-hot-toast";
 
 
 const useAxiosSecure = () => {
@@ -29,6 +30,7 @@ const useAxiosSecure = () => {
                 await logOut()
                 navigate('/sign-in')
             }
+           toast.error(err.response.error.message);
             return Promise.reject(err)
         })
 

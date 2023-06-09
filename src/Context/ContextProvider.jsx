@@ -11,6 +11,7 @@ import {
   
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import axios from "axios";
 // import axios from "axios";
 // CREATE CONTEXT
 export const AuthContext = createContext();
@@ -54,19 +55,20 @@ const ContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
       setUser(loggedUser);
 
-    //   if (loggedUser) {
-    //     axios
-    //       .post("http://localhost:5000/jwt", {
-    //         email: loggedUser.email,
-    //       })
-    //       .then((data) => {
-    //         if (data.data) {
-    //           localStorage.setItem("access-token", data.data.token);
-    //         }
-    //       });
-    //   } else {
-    //     localStorage.removeItem("access-token");
-    //   }
+
+      if (loggedUser) {
+        axios
+          .post("http://localhost:5000/jwt", {
+            email: loggedUser.email,
+          })
+          .then((data) => {
+            if (data.data) {
+              localStorage.setItem("access-token", data.data.token);
+            }
+          });
+      } else {
+        localStorage.removeItem("access-token");
+      }
 
       setLoading(false);
     });

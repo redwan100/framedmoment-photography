@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import Loading from "../../Shared/Loading/Loading";
 import Row from './Row'
 import {useQuery} from '@tanstack/react-query'

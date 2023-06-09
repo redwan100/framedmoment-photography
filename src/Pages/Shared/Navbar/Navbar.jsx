@@ -73,7 +73,7 @@ const Navbar = () => {
             {user && (
               <div className="flex items-center gap-4">
                 {user.photoURL ? (
-                  <img  className='w-8 h-8 rounded-full ring-1 ring-teal-500 ring-offset-2' src={user.photoURL} />
+                  <img  className='w-8 h-8 rounded-full ring-1 ring-teal-500 ring-offset-2' src={user.photoURL} referrerPolicy='no-referrer'/>
                 ) : (
                   <FaRegUserCircle size={25} />
                 )}

@@ -3,9 +3,23 @@ import { GrInfo } from "react-icons/gr";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { HiOutlineUsers } from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin/useAdmin";
+import useInstructor from "../Hooks/useInstructor/useInstructor";
+import Loading from "../Pages/Shared/Loading/Loading";
+import useStudent from "../Hooks/useStudent/useStudent";
+
 
 const Dashboard = () => {
-    const isUser = 'admin';
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isInstructor, isInstructorLoading] = useInstructor();
+  const [isStudent, isStudentLoading] = useStudent();
+  
+  const isUser = isAdmin || isInstructor || isStudent
+  console.log(isStudent);
+
+  if(isAdminLoading || isInstructorLoading || isStudentLoading){
+    return <Loading />
+  }
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -24,7 +38,7 @@ const Dashboard = () => {
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
-          {isUser === "instructor" && (
+          {isInstructor.instructor && (
             <>
               <li>
                 <Link to={"/dashboard/add-class"}>
@@ -33,13 +47,13 @@ const Dashboard = () => {
               </li>
               <li>
                 <Link to={"/dashboard/my-classes"}>
-                  <SiGoogleclassroom /> Manage Classes
+                  <SiGoogleclassroom /> My Classes
                 </Link>
               </li>
             </>
           )}
 
-          {isUser === "admin" && (
+          {isAdmin.admin && (
             <>
               <li>
                 <Link to={"/dashboard/manage-class"}>
@@ -54,7 +68,7 @@ const Dashboard = () => {
             </>
           )}
 
-          {isUser === "student" && (
+          {isStudent.student && (
             <>
               <li>
                 <Link to={"/dashboard/my-select-class"}>
