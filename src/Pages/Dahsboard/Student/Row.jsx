@@ -2,10 +2,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 import { LuTrash } from "react-icons/lu";
-const Row = ({ course, index }) => {
+import { useState } from "react";
+const Row = ({ course, index, refetch }) => {
   const { _id, className, instructorName, availableSeat, price, image } =
     course;
-
     // TODO: tanStackQuery 
 
   const handleDeleteClass = (id) => {
@@ -25,6 +25,8 @@ const Row = ({ course, index }) => {
             console.log(res.data);
             if (res.data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
+
+              refetch()
             }
           });
       }

@@ -5,7 +5,7 @@ import { HiOutlineUsers } from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-    const isUser = 'student';
+    const isUser = 'admin';
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

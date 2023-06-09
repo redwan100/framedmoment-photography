@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 // TODO: tanStackQuery 
 
-const Row = ({classList, index}) => {
+const Row = ({classList, index, refetch}) => {
     const {
         _id,
       className,
@@ -38,6 +38,8 @@ const Row = ({classList, index}) => {
                    showConfirmButton: false,
                    timer: 1500,
                  });
+
+                 refetch()
                }
 
             })
@@ -68,11 +70,10 @@ const Row = ({classList, index}) => {
         <td>{price}</td>
         <th className="">
           <button
-            disabled={status === 'denied'}
+            disabled={status === "denied"}
             className={`btn btn-xs ${
-              status === "pending"  && "bg-red-200 text-red-500"
+              status === "pending" && "bg-red-200 text-red-500"
             } ${status === "approved" && "bg-green-200 text-green-500"}`}
-
           >
             {status}
           </button>
@@ -80,22 +81,38 @@ const Row = ({classList, index}) => {
         <th className="">
           <div className="btn-group">
             <button
-              className="btn btn-xs"
+              className="btn btn-xs bg-teal-500 text-white hover:bg-teal-400"
               disabled={status === "approved" || status === "denied"}
               onClick={() => handleApproveDeny("approved")}
             >
               Approve
             </button>
-            <button
+            {/* <button
               className="btn btn-xs"
               disabled={status === "approved" || status === "denied"}
               onClick={() => handleApproveDeny("denied")}
             >
               Deny
-            </button>
-            <button className="btn btn-xs">Feedback</button>
+            </button> */}
+            {/* <button className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500">
+              Feedback
+            </button> */}
           </div>
         </th>
+        <td>
+          <button
+            className="btn btn-xs"
+            disabled={status === "approved" || status === "denied"}
+            onClick={() => handleApproveDeny("denied")}
+          >
+            Deny
+          </button>
+        </td>
+        <td>
+          <button className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500">
+            Feedback
+          </button>
+        </td>
       </tr>
     </>
   );

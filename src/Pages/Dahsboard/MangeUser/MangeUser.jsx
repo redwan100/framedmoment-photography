@@ -1,22 +1,30 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
 import Row from "./Row"
 import Loading from "../../Shared/Loading/Loading"
+import {useQuery} from '@tanstack/react-query'
 
 const MangeUser = () => {
-    const [users, setUsers] = useState([])
-    const [loading, setLoading] = useState(true)
-   useEffect(()=>{
-     axios.get("http://localhost:5000/all-users").then((data) => {
-       setUsers(data.data);
-       setLoading(false)
-     });
-   }, [])
 
-    console.log(users);
-    if(loading) {
-        return <Loading />
-    }
+
+        const {
+          data: users = [],
+          refetch,
+          isLoading,
+        } = useQuery({
+          queryKey: ["allusers"],
+          queryFn: async () => {
+            const res = await axios.get("http://localhost:5000/all-users");
+
+            console.log(res.data);
+            return res.data;
+          },
+        });
+
+        if (isLoading) {
+          return <Loading />;
+        }
+
+
   return (
     <>
       <div className="overflow-x-auto">
@@ -34,7 +42,7 @@ const MangeUser = () => {
             </tr>
           </thead>
           <tbody>
-            {users?.map((user, index) => <Row key={user._id} user={user} index={index}/>)}
+            {users?.map((user, index) => <Row key={user._id} userItem={user} index={index} refetch={refetch}/>)}
           </tbody>
     
         </table>

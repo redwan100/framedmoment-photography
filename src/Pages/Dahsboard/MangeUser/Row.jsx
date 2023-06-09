@@ -1,47 +1,57 @@
 import axios from "axios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
+const Row = ({ index, userItem, refetch }) => {
+  const { _id, name, email, photo, role } = userItem;
+  const handleAdminInstructor = (text) => {
+    const instructorInfo = { name, email, photo, _id };
 
-const Row = ({index, user}) => {
-    const {_id, name, email,photo,role} = user;
- 
-    
-    const handleAdminInstructor = (text) => {        Swal.fire({
-          title: "Are you sure?",
-          // text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: `Yes Make It ${text}`
-        }).then((result) => {
-          if (result.isConfirmed) {
-
-            axios
-              .patch(`http://localhost:5000/user/admin/${_id}`, { text })
-              .then((res) => {
-                if (res.data.modifiedCount > 0) {
-                  Swal.fire({
-                    position: "top-center",
-                    icon: "success",
-                    title: `${name} Now is ${text}`,
-                    showConfirmButton: false,
-                    timer: 1500,
-                  });
-                }
-              })
-              .catch((err) => {
-                console.log(err);
+    Swal.fire({
+      title: "Are you sure?",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes Make It ${text}`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .patch(`http://localhost:5000/user/admin/${_id}`, { text })
+          .then((res) => {
+            if (res.data.modifiedCount > 0) {
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: `${name} Now is ${text}`,
+                showConfirmButton: false,
+                timer: 1500,
               });
-          }
-        });
-    }
-    
-    
-    
-    return (
+
+              if(text === 'instructor'){
+                axios.post(`http://localhost:5000/admin/instructor`, {
+                  ...instructorInfo,
+                })
+                .then(res => console.log(res.data))
+              }
+            }
+
+            refetch();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
+
+  return (
     <>
-      <tr className="odd:bg-slate-50 even:bg-slate-200 hover:bg-slate-300">
+      <tr
+        className={`odd:bg-slate-50 even:bg-slate-200 hover:bg-slate-300 ${
+          email === "ridoneislam987@gmail.com" && "hidden"
+        }`}
+      >
         <th>{index + 1} </th>
         <td>
           <div className="avatar">
@@ -54,14 +64,14 @@ const Row = ({index, user}) => {
         <td>{email}</td>
         <th className="">
           <button
-          disabled={role==='instructor'}
+            disabled={role === "instructor"}
             className="btn btn-ghost btn-xs"
             onClick={() => handleAdminInstructor("instructor")}
           >
             Instructor
           </button>
           <button
-          disabled={role === 'admin' }
+            disabled={role === "admin"}
             className="btn btn-ghost btn-xs"
             onClick={() => handleAdminInstructor("admin")}
           >
@@ -71,6 +81,6 @@ const Row = ({index, user}) => {
       </tr>
     </>
   );
-}
+};
 
-export default Row
+export default Row;

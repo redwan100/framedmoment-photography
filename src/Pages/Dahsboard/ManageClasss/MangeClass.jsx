@@ -2,19 +2,26 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Loading from "../../Shared/Loading/Loading";
 import Row from './Row'
+import {useQuery} from '@tanstack/react-query'
+
 
 const MangeClass = () => {
-     const [classes, setClasses] = useState([]);
-     const [loading, setLoading] = useState(true);
-     useEffect(() => {
-       axios.get("http://localhost:5000/all-classes").then((data) => {
-         setClasses(data.data);
-         setLoading(false);
-       })
-       .catch(err => console.log(err))
-     }, []);
 
-     if (loading) {
+     const {
+       data: classes = [],
+       refetch,
+       isLoading,
+     } = useQuery({
+       queryKey: ["all-classes"],
+       queryFn: async () => {
+         const res = await axios.get("http://localhost:5000/all-classes");
+
+         console.log(res.data);
+         return res.data;
+       },
+     });
+
+     if (isLoading) {
        return <Loading />;
      }
   return (
@@ -32,12 +39,14 @@ const MangeClass = () => {
               <th>Available Seats</th>
               <th>Price</th>
               <th>Status</th>
-              <th>Action</th>
+              <th>Approve</th>
+              <th>Deny</th>
+              <th>Feedback</th>
             </tr>
           </thead>
           <tbody>
             {classes.map((user, index) => (
-              <Row key={user._id} classList={user} index={index} />
+              <Row key={user._id} classList={user} index={index} refetch={refetch}/>
             ))}
           </tbody>
         </table>

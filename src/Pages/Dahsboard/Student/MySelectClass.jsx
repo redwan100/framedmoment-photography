@@ -1,26 +1,27 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
 import Row from "./Row";
 import Loading from "../../Shared/Loading/Loading";
+import {useQuery} from '@tanstack/react-query'
 
 const MySelectClass = () => {
-  const [loading, setLoading] = useState(true)
- const [allClasses, setAllClasses] = useState([])
-  useEffect(() => {
- axios
-   .get("http://localhost:5000/allSelectedCourse")
-   .then((res) => {
-    setAllClasses(res.data);
-    setLoading(false)
-   });
-  },[])
 
 
-  if(loading) return <Loading />
+
+  const {data: allClasses = [], refetch, isLoading} = useQuery({
+    queryKey:['allClasses'],
+    queryFn: async() =>{
+      const res = await axios.get('http://localhost:5000/allSelectedCourse')
+
+      console.log(res.data);
+      return res.data;
+    }
+  })
+
+  if(isLoading) return <Loading />
 
   return (
     <div>
-      <div className="overflow-x-auto">
+     {allClasses && allClasses.length > 0 ?( <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>
@@ -37,10 +38,10 @@ const MySelectClass = () => {
           </thead>
           <tbody>
             {allClasses?.map((item, index) =>
-            <Row key={item._id} course={item} index={index} />) }
+            <Row key={item._id} course={item} index={index}  refetch={refetch}/>) }
           </tbody>
         </table>
-      </div>
+      </div>):<p className="text-center text-3xl font-semibold">No Data found</p>}
     </div>
   );
 }
