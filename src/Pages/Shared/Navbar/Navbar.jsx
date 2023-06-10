@@ -3,16 +3,33 @@ import {Link, useNavigate} from 'react-router-dom'
 import { AuthContext } from '../../../Context/ContextProvider';
 import {HiOutlineLogout} from 'react-icons/hi'
 import { FaRegUserCircle } from 'react-icons/fa';
+import {useQuery} from '@tanstack/react-query'
+import axios from 'axios';
 
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const {user, logOut} = useContext(AuthContext)
+  const {user,loading, logOut} = useContext(AuthContext)
+
+
    const handleLogOut = () => {
      logOut().then(() => {
       navigate('/sign-in')
      });
    };
+
+
+   const {data:route={}} = useQuery({
+    queryKey:['route-path'],
+    enabled:!loading && !!user?.email,
+    queryFn: async() =>{
+      const res = await axios.get(`http://localhost:5000/route-path/${user?.email}`)
+
+      return res.data
+    }
+   })
+
+   console.log(route.role);
    
     const options = (
       <>
@@ -27,10 +44,17 @@ const Navbar = () => {
         </li>
         {user && (
           <li>
-            <Link to={"/dashboard/my-classes"}>Dashboard</Link>
+            {route.role === "student" && (
+              <Link to="/dashboard/my-select-class">Dashboard</Link>
+            )}
+            {route.role === "instructor" && (
+              <Link to="/dashboard/my-classes">Dashboard</Link>
+            )}
+            {route.role === "admin" && (
+              <Link to="/dashboard/manage-class">Dashboard</Link>
+            )}
           </li>
         )}
-        
       </>
     );
 

@@ -3,13 +3,13 @@ import { useQuery } from '@tanstack/react-query'
 import { useContext } from "react";
 import { AuthContext } from "../../Context/ContextProvider";
 import axios from "axios";
+import Loading from "../Shared/Loading/Loading";
 
 const Classes = () => {
 const {user} = useContext(AuthContext)
 
-  const { data: classes = [] } = useQuery({
+  const { data: classes = [], isLoading } = useQuery({
     queryKey: ["approved-class"],
-    enabled: !!user?.email && !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axios.get("http://localhost:5000/approved-class");
 
@@ -18,6 +18,9 @@ const {user} = useContext(AuthContext)
   });
 
 
+  if(isLoading){
+    return <Loading />
+  }
   
   return (
     <div className="py-12">

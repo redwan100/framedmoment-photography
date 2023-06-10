@@ -14,8 +14,8 @@ const Dashboard = () => {
   const [isInstructor, isInstructorLoading] = useInstructor();
   const [isStudent, isStudentLoading] = useStudent();
   
-  const isUser = isAdmin || isInstructor || isStudent
-  console.log(isStudent);
+  // const isUser = isAdmin || isInstructor || isStudent
+  // console.log(isStudent);
 
   if(isAdminLoading || isInstructorLoading || isStudentLoading){
     return <Loading />

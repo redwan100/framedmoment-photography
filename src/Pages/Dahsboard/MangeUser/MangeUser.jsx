@@ -2,9 +2,10 @@ import axios from "axios"
 import Row from "./Row"
 import Loading from "../../Shared/Loading/Loading"
 import {useQuery} from '@tanstack/react-query'
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure"
 
 const MangeUser = () => {
-
+const [axiosSecure] = useAxiosSecure()
 
         const {
           data: users = [],
@@ -13,7 +14,7 @@ const MangeUser = () => {
         } = useQuery({
           queryKey: ["allusers"],
           queryFn: async () => {
-            const res = await axios.get("http://localhost:5000/all-users");
+            const res = await axiosSecure.get("/all-users");
 
             console.log(res.data);
             return res.data;

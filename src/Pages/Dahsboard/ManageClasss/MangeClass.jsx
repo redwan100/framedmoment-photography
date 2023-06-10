@@ -2,10 +2,11 @@ import axios from "axios";
 import Loading from "../../Shared/Loading/Loading";
 import Row from './Row'
 import {useQuery} from '@tanstack/react-query'
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 
 const MangeClass = () => {
-
+  const [axiosSecure] = useAxiosSecure()
      const {
        data: classes = [],
        refetch,
@@ -13,7 +14,7 @@ const MangeClass = () => {
      } = useQuery({
        queryKey: ["all-classes"],
        queryFn: async () => {
-         const res = await axios.get("http://localhost:5000/all-classes");
+         const res = await axiosSecure.get("/all-classes");
 
          console.log(res.data);
          return res.data;
