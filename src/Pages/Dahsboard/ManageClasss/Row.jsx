@@ -3,54 +3,50 @@ import Swal from "sweetalert2";
 
 // TODO: tanStackQuery 
 
-const Row = ({classList, index, refetch}) => {
-    const {
-        _id,
-      className,
-      instructorName,
-      instructorEmail,
-      availableSeat,
-      price,
-      image,
-      status,
-    } = classList;
-    console.log(instructorEmail);
-    
-     const handleApproveDeny = (text) => {
-       Swal.fire({
-         title: "Are you sure?",
-         // text: "You won't be able to revert this!",
-         icon: "warning",
-         showCancelButton: true,
-         confirmButtonColor: "#3085d6",
-         cancelButtonColor: "#d33",
-         confirmButtonText: `Yes Make It ${text}`,
-       }).then((result) => {
-         if (result.isConfirmed) {
-           axios
-             .patch(`http://localhost:5000/class-status/${_id}`, { text })
-             .then((res) => {
-               if (res.data.modifiedCount > 0) {
-                 Swal.fire({
-                   position: "top-center",
-                   icon: "success",
-                   title: ` Post is ${text}`,
-                   showConfirmButton: false,
-                   timer: 1500,
-                 });
+const Row = ({ classList, index, refetch, handleFeedbackModal }) => {
+  const {
+    _id,
+    className,
+    instructorName,
+    instructorEmail,
+    availableSeat,
+    price,
+    image,
+    status,
+  } = classList;
 
-                 refetch()
-               }
+  const handleApproveDeny = (text) => {
+    Swal.fire({
+      title: "Are you sure?",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes Make It ${text}`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .patch(`http://localhost:5000/class-status/${_id}`, { text })
+          .then((res) => {
+            if (res.data.modifiedCount > 0) {
+              Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: ` Post is ${text}`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
 
-            })
-             .catch((err) => {
-                 console.log(err);
-                });
-         }
-       });
-     };
-
-
+              refetch();
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  };
 
   return (
     <>
@@ -109,13 +105,16 @@ const Row = ({classList, index, refetch}) => {
           </button>
         </td>
         <td>
-          <button className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500">
+          <button
+            className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500"
+            onClick={handleFeedbackModal}
+          >
             Feedback
           </button>
         </td>
       </tr>
     </>
   );
-}
+};
 
 export default Row

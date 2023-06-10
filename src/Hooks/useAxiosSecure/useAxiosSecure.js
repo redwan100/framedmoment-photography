@@ -23,10 +23,10 @@ const useAxiosSecure = () => {
         }
         return config;
     })
-
+ 
         /* -------------------------- INTERCEPTORS RESPONSE -------------------------- */
         axiosSecure.interceptors.response.use((response) => response, async(err) =>{
-            if(err.response && (err.response.status === 401 || err.response.status === 43)){
+            if(err.response && (err.response.status === 401 || err.response.status === 403)){
                 await logOut()
                 navigate('/sign-in')
             }

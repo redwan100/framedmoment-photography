@@ -2,9 +2,15 @@ import axios from "axios";
 import Row from "./Row";
 import Loading from "../../Shared/Loading/Loading";
 import {useQuery} from '@tanstack/react-query'
+import useCart from "../../../Hooks/useCard/useCard";
 
 const MySelectClass = () => {
-
+const [cart, cartRefetch] = useCart();
+const total = cart.reduce((acc, cur) =>{
+  acc+= cur.price
+  cartRefetch()
+  return acc;
+},0)
 
 
   const {data: allClasses = [], refetch, isLoading} = useQuery({
@@ -12,15 +18,16 @@ const MySelectClass = () => {
     queryFn: async() =>{
       const res = await axios.get('http://localhost:5000/allSelectedCourse')
 
-      console.log(res.data);
+
       return res.data;
     }
   })
-
   if(isLoading) return <Loading />
+
 
   return (
     <div>
+      <p className="text-right font-semibold my-2">Total Price: ${total}</p>
      {allClasses && allClasses.length > 0 ?( <div className="overflow-x-auto">
         <table className="table">
           {/* head */}

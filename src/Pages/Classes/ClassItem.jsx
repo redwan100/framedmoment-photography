@@ -40,8 +40,8 @@ const ClassItem = ({ classes }) => {
        instructorName, 
        image, 
        price, 
-       availableSeat
-
+       availableSeat,
+       email:user?.email
      };
 
      axios

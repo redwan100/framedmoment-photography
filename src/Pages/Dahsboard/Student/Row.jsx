@@ -1,6 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import {Link} from 'react-router-dom'
 import { LuTrash } from "react-icons/lu";
 import { useState } from "react";
 const Row = ({ course, index, refetch }) => {
@@ -49,9 +49,11 @@ const Row = ({ course, index, refetch }) => {
         <td className="text-center">{availableSeat}</td>
         <td className="text-right">${price}</td>
         <th className="">
-          <button className="bg-orange-500 text-white py-1 px-2 rounded-md hover:bg-orange-600">
-            Pay
-          </button>
+          <Link to={'/dashboard/payment'}>
+            <button className="bg-orange-500 text-white py-1 px-2 rounded-md hover:bg-orange-600">
+              Pay
+            </button>
+          </Link>
         </th>
         <th className="" onClick={() => handleDeleteClass(_id)}>
           <button className="w-8 h-8 grid place-content-center rounded-md bg-red-500 text-white border border-red-500 hover:bg-transparent hover:text-red-500">

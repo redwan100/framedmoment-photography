@@ -1,12 +1,9 @@
 import ClassItem from "./ClassItem"
 import { useQuery } from '@tanstack/react-query'
-import { useContext } from "react";
-import { AuthContext } from "../../Context/ContextProvider";
 import axios from "axios";
 import Loading from "../Shared/Loading/Loading";
 
 const Classes = () => {
-const {user} = useContext(AuthContext)
 
   const { data: classes = [], isLoading } = useQuery({
     queryKey: ["approved-class"],
