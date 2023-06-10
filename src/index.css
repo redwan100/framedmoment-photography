@@ -34,3 +34,6 @@ background: linear-gradient(to right, #8D0ACF 0%, #FC3CD6 100%);
 }
 
 
+.carousel.carousel-slider{
+  height: 70vh;
+}

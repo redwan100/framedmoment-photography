@@ -3,20 +3,25 @@ import Row from "./Row";
 import Loading from "../../Shared/Loading/Loading";
 import {useQuery} from '@tanstack/react-query'
 import useCart from "../../../Hooks/useCard/useCard";
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/ContextProvider";
 
 const MySelectClass = () => {
+const {user, loading} = useContext(AuthContext)
+
 const [cart, cartRefetch] = useCart();
 const total = cart.reduce((acc, cur) =>{
   acc+= cur.price
-  cartRefetch()
+  cartRefetch();
   return acc;
 },0)
 
 
   const {data: allClasses = [], refetch, isLoading} = useQuery({
     queryKey:['allClasses'],
+    enabled:!loading,
     queryFn: async() =>{
-      const res = await axios.get('http://localhost:5000/allSelectedCourse')
+      const res = await axios.get(`http://localhost:5000/allSelectedCourse?email=${user?.email}`);
 
 
       return res.data;
