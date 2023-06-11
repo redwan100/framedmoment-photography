@@ -5,10 +5,12 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from 'react-hot-toast'
+import useCart from "../../Hooks/useCard/useCard";
 
 
 
 const ClassItem = ({ classes }) => {
+  const [, cartRefetch] = useCart()
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const { _id, className, instructorName, image, price, availableSeat } =
@@ -49,8 +51,11 @@ const ClassItem = ({ classes }) => {
        .then((res) => {
          if(res.data.insertedId){
           toast.success('Successfully buy your course',{duration:1500})
+          cartRefetch()
          }
        });
+
+       
   };
   return (
     <div

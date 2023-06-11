@@ -3,9 +3,20 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/ContextProvider";
+import Swal from 'sweetalert2'
 
-const Checkout = ({ price, cart }) => {
+
+const Checkout = ({  cart, classItem }) => {
   const { user } = useContext(AuthContext);
+  const {  availableSeat,
+        className,
+        _id,
+        image,
+        email,
+        instructorName,
+        course_id,
+        price} = classItem;
+        
   const [cardError, setCardError] = useState("");
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -18,10 +29,11 @@ const Checkout = ({ price, cart }) => {
       axios
         .post(`http://localhost:5000/create-payment-intent`, { price })
         .then((res) => {
+          console.log(res.data);
           setClientSecret(res.data.clientSecret);
         });
     }
-  }, []);
+  }, [classItem?.price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,19 +82,30 @@ const Checkout = ({ price, cart }) => {
 
       const payment = {
         email: user?.email,
-        className:cart.map((name) => name.className),
         transactionId: paymentIntent.id,
-        classId:cart.map((item) => item.course_id),
         date: new Date(),
+        availableSeat,
+        className,
+        image,
+        instructorName,
         price,
-        quantity: cart.length,
-
+        classId:_id,
+        course_id,
+        instructorEmail:email,
         status: "pending",
       };
+      console.log({_id, classItem});
 
       axios.post("http://localhost:5000/payments", payment).then((res) => {
         if (res.data.result.insertedId) {
             console.log(res.data);
+            Swal.fire({
+              position: "top-center",
+              icon: "success",
+              title: "Payment success✅",
+              showConfirmButton: false,
+              timer: 1500,
+            });
         }
 
       });

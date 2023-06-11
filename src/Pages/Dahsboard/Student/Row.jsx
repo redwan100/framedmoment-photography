@@ -49,7 +49,7 @@ const Row = ({ course, index, refetch }) => {
         <td className="text-center">{availableSeat}</td>
         <td className="text-right">${price}</td>
         <th className="">
-          <Link to={'/dashboard/payment'}>
+          <Link to={`/dashboard/payment/${_id}`}>
             <button className="bg-orange-500 text-white py-1 px-2 rounded-md hover:bg-orange-600">
               Pay
             </button>

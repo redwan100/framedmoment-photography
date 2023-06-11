@@ -1,7 +1,11 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
+
+
 
 const Row = ({ index, userItem, refetch }) => {
+  const [axiosSecure] = useAxiosSecure()
   const { _id, name, email, photo, role } = userItem;
   const handleAdminInstructor = (text) => {
     const instructorInfo = { name, email, photo, _id };
@@ -16,8 +20,8 @@ const Row = ({ index, userItem, refetch }) => {
       confirmButtonText: `Yes Make It ${text}`,
     }).then((result) => {
       if (result.isConfirmed) {
-        axios
-          .patch(`http://localhost:5000/user/admin/${_id}`, { text })
+        axiosSecure
+          .patch(`/user/admin/${_id}`, { text })
           .then((res) => {
             if (res.data.modifiedCount > 0) {
               Swal.fire({

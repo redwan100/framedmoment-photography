@@ -1,19 +1,24 @@
 import axios from "axios";
 import { useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 
 const Feedback = ({ handleFeedbackModal }) => {
   const inputRef = useRef(null)
-
+  const navigate = useNavigate()
   const {id} = useParams()
+  const [axiosSecure] = useAxiosSecure()
   
 const something = () => {
   const feedback = inputRef.current.value;
   inputRef.current.value = ''
 
-  axios.patch(`http://localhost:5000/feedback/${id}`, {feedback})
+  axiosSecure.patch(`/feedback/${id}`, {feedback})
   .then(res => {
     console.log(res.data);
+    if(res.data.modifiedCount > 0){
+      navigate('/dashboard/manage-class')
+    }
   })
 
 }

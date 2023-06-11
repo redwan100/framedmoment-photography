@@ -81,7 +81,7 @@ const router = createBrowserRouter([
         element:<MyEnrolledClass />
       },
       {
-        path:'payment',
+        path:'payment/:id',
         element:<Payment />
       },
       {

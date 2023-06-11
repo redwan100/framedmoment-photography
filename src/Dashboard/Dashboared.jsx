@@ -1,7 +1,10 @@
 import { SiGoogleclassroom } from "react-icons/si";
 import { GrInfo } from "react-icons/gr";
+import { MdHistory } from "react-icons/md";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { HiOutlineUsers } from "react-icons/hi";
+import { SlGraduation } from "react-icons/sl";
+import { BsBookmarks } from "react-icons/bs";
 import { Link, Outlet } from "react-router-dom";
 import useAdmin from "../Hooks/useAdmin/useAdmin";
 import useInstructor from "../Hooks/useInstructor/useInstructor";
@@ -57,7 +60,7 @@ const Dashboard = () => {
             <>
               <li>
                 <Link to={"/dashboard/manage-class"}>
-                  <HiOutlineUsers /> Manage Class
+                  <SlGraduation /> Manage Class
                 </Link>
               </li>
               <li>
@@ -72,12 +75,17 @@ const Dashboard = () => {
             <>
               <li>
                 <Link to={"/dashboard/my-select-class"}>
-                  <HiOutlineUsers /> My select class
+                  <BsBookmarks /> My select class
                 </Link>
               </li>
               <li>
                 <Link to={"/dashboard/my-enrolled-class"}>
                   <HiOutlineUsers /> My Enrolled class
+                </Link>
+              </li>
+              <li>
+                <Link to={"/dashboard/my-enrolled-class"}>
+                  <MdHistory /> Payment History
                 </Link>
               </li>
             </>
