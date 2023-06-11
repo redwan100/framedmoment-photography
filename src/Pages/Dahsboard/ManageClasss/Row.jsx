@@ -1,9 +1,12 @@
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 // TODO: tanStackQuery 
 
-const Row = ({ classList, index, refetch, handleFeedbackModal }) => {
+const Row = ({ classList, index, refetch }) => {
+
+
   const {
     _id,
     className,
@@ -14,6 +17,8 @@ const Row = ({ classList, index, refetch, handleFeedbackModal }) => {
     image,
     status,
   } = classList;
+
+
 
   const handleApproveDeny = (text) => {
     Swal.fire({
@@ -47,6 +52,9 @@ const Row = ({ classList, index, refetch, handleFeedbackModal }) => {
       }
     });
   };
+
+
+   
 
   return (
     <>
@@ -83,16 +91,6 @@ const Row = ({ classList, index, refetch, handleFeedbackModal }) => {
             >
               Approve
             </button>
-            {/* <button
-              className="btn btn-xs"
-              disabled={status === "approved" || status === "denied"}
-              onClick={() => handleApproveDeny("denied")}
-            >
-              Deny
-            </button> */}
-            {/* <button className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500">
-              Feedback
-            </button> */}
           </div>
         </th>
         <td>
@@ -105,12 +103,14 @@ const Row = ({ classList, index, refetch, handleFeedbackModal }) => {
           </button>
         </td>
         <td>
-          <button
-            className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500"
-            onClick={handleFeedbackModal}
-          >
-            Feedback
-          </button>
+          <Link to={`/dashboard/feedback/${_id}`}>
+            <button
+              className="btn btn-xs  bg-orange-500 text-white hover:bg-red-500"
+              disabled={status === "approved" || status === "pending"}
+            >
+              Feedback
+            </button>
+          </Link>
         </td>
       </tr>
     </>

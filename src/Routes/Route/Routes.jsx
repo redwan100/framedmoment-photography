@@ -15,6 +15,7 @@ import MangeUser from "../../Pages/Dahsboard/MangeUser/MangeUser";
 import MySelectClass from "../../Pages/Dahsboard/Student/MySelectClass";
 import MyEnrolledClass from "../../Pages/Dahsboard/Student/MyEnrolledClass";
 import Payment from '../../Pages/Dahsboard/Student/Payment'
+import Feedback from "../../Pages/Shared/Feedback/Feedback";
 
 const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
       {
         path:'payment',
         element:<Payment />
+      },
+      {
+        path:'feedback/:id',
+        element:<Feedback />
       },
     ]
   }

@@ -3,13 +3,15 @@ import Loading from "../../Shared/Loading/Loading";
 import Row from './Row'
 import {useQuery} from '@tanstack/react-query'
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
-import { useState } from "react";
-import Feedback from "../../Shared/Feedback/Feedback";
+import { useRef, useState } from "react";
 
 
 const MangeClass = () => {
   const [axiosSecure] = useAxiosSecure()
-  const [isShow, setIsShow] = useState(false)
+  const [isShow, setIsShow] = useState()
+
+
+  
      const {
        data: classes = [],
        refetch,
@@ -28,15 +30,12 @@ const MangeClass = () => {
        return <Loading />;
      }
 
-     const handleFeedbackModal = () => {
-      setIsShow(!isShow)
-     }
+ 
 
   return (
     <div className="relative">
-      <div className={`${isShow ? "block" : "hidden"}`}>
-        <Feedback handleFeedbackModal={handleFeedbackModal} />
-      </div>
+
+
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -62,7 +61,7 @@ const MangeClass = () => {
                 classList={user}
                 index={index}
                 refetch={refetch}
-                handleFeedbackModal={handleFeedbackModal}
+                // handleFeedbackModal={handleFeedbackModal}
               />
             ))}
           </tbody>

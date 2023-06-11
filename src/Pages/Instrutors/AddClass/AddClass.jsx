@@ -39,7 +39,8 @@ const formData = new FormData();
              ...data,
              status: "pending",
              image,
-             price: parseFloat(data.price)
+             price: parseFloat(data.price),
+             availableSeat: parseFloat(data.availableSeat),
            };
             axios
               .post("http://localhost:5000/class", classInfo)
