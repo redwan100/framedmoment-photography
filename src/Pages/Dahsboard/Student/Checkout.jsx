@@ -12,8 +12,8 @@ const Checkout = ({  cart, classItem }) => {
         className,
         _id,
         image,
-        email,
         instructorName,
+        instructorEmail,
         course_id,
         price} = classItem;
         
@@ -82,16 +82,17 @@ const Checkout = ({  cart, classItem }) => {
 
       const payment = {
         email: user?.email,
+        name: user?.displayName,
         transactionId: paymentIntent.id,
         date: new Date(),
         availableSeat,
         className,
         image,
         instructorName,
+        instructorEmail,
         price,
         classId:_id,
         course_id,
-        instructorEmail:email,
         status: "pending",
       };
       console.log({_id, classItem});
@@ -113,6 +114,8 @@ const Checkout = ({  cart, classItem }) => {
 
     navigate("/dashboard/my-select-class");
   };
+
+  console.log(classItem);
 
   return (
     <form onSubmit={handleSubmit}>

@@ -67,20 +67,20 @@ const SignUp = () => {
           <Lottie animationData={signUpImg} loop={true} />
         </div>
 
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20  border-gradient">
+        <div className="bg-base-200 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20  border-gradient">
           <h1 className="text-center text-4xl font-bold uppercase mb-4">
             Sign up
           </h1>
           <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="name"
               >
                 Name
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="name"
                 type="text"
                 placeholder="Enter your name"
@@ -93,13 +93,13 @@ const SignUp = () => {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="email"
               >
                 Email
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="email"
                 type="email"
                 placeholder="Enter your email"
@@ -111,13 +111,13 @@ const SignUp = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="password"
                 type="password"
                 placeholder="Enter your password"
@@ -138,13 +138,13 @@ const SignUp = () => {
 
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="confirm-password"
               >
                 Confirm-password
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="confirm-password"
                 type="password"
                 placeholder="Confirm password"
@@ -154,20 +154,22 @@ const SignUp = () => {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="name"
               >
                 PhotoUrl
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow- bg-base-300"
                 id="name"
                 type="photo"
                 placeholder="Photo Url"
                 {...register("photoUrl", { required: true })}
               />
             </div>
-            {error.photoUrl && <p className="text-error font-medium">{error}</p>}
+            {error.photoUrl && (
+              <p className="text-error font-medium">{error}</p>
+            )}
             <div className="">
               <button
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"

@@ -2,7 +2,7 @@
 const Card = ({instructor}) => {
     const {name, email, photo} = instructor;
   return (
-    <div className="card card-compact bg-slate-100 shadow-md border border-slate-300">
+    <div className="card card-compact bg-base-100 shadow-md border border-base-300">
       <figure>
         <img src={photo} className="w-full h-[15rem] object-cover"/>
       </figure>

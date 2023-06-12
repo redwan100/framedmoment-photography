@@ -14,9 +14,10 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user, loading, logOut } = useContext(AuthContext);
   const [cart] = useCart();
-  // const [theme, setTheme] = useState(
-  //   localStorage.getItem("") ? localStorage.getItem("theme") : "light"
-  // );
+
+  const [theme, setTheme] = useState(
+    localStorage.getItem("") ? localStorage.getItem("theme") : "light"
+  );
   const [isShow, setIsShow] = useState(true);
 
   const handleLogOut = () => {
@@ -62,37 +63,39 @@ const Navbar = () => {
           )}
         </li>
       )}
-      <li>
-        <Link to={"/dashboard/my-select-class"} className="relative">
-          <AiOutlineShoppingCart size={25} />
-          <span className="bg-red-500 w-6 h-6 grid place-content-center rounded-full font-bold text-white text-xs absolute top-0 right-0">
-            {cart.length}
-          </span>
-        </Link>
-      </li>
+      {route.role === "student" && (
+        <li>
+          <Link to={"/dashboard/my-select-class"} className="relative">
+            <AiOutlineShoppingCart size={25} />
+            <span className="bg-red-500 w-6 h-6 grid place-content-center rounded-full font-bold text-white text-xs absolute top-0 right-0">
+              {cart.length}
+            </span>
+          </Link>
+        </li>
+      )}
     </>
   );
 
-  // useEffect(() => {
-  //   localStorage.setItem("theme", theme);
-  //   const localTheme = localStorage.getItem(theme);
-  //   document.querySelector("html").setAttribute("data-theme", localTheme);
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem(theme);
+    document.querySelector("html").setAttribute("data-theme", localTheme);
     
-  // }, [theme]);
+  }, [theme]);
 
-  // const toggleTheme = () => {
-  //   setIsShow(!isShow);
-  //   if (isShow) {
-  //     setTheme("dark");
-  //   } else {
-  //     setTheme("light");
-  //   }
-  // };
+  const toggleTheme = () => {
+    setIsShow(!isShow);
+    if (isShow) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
 
   console.log(document.querySelector('html'));
 
   return (
-    <div className="bg-base-100 shadow-md fixed top-0 left-0 z-50 w-full">
+    <div className="bg-base-300 shadow-md fixed top-0 left-0 z-50 w-full">
       <div className="navbar my-container">
         <div className="navbar-start ">
           <div className="dropdown">
@@ -128,11 +131,11 @@ const Navbar = () => {
           {/* THEM ICON */}
           <div className="mx-4">
             {isShow ? (
-              <span >
+              <span onClick={toggleTheme}>
                 <CiLight size={25} cursor={"pointer"} />
               </span>
             ) : (
-              <span >
+              <span onClick={toggleTheme}>
                 <TbMoon size={25} cursor={"pointer"} />
               </span>
             )}

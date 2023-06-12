@@ -43,20 +43,20 @@ const SignIn = () => {
           <Lottie animationData={signInImg} loop={true} />
         </div>
 
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20 border-gradient">
+        <div className="bg-base-200 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20 border-gradient">
           <h1 className="text-center text-4xl font-bold uppercase mb-4">
             Sign in
           </h1>
           <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="email"
               >
                 Email
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="email"
                 type="email"
                 placeholder="Enter your email"
@@ -69,14 +69,14 @@ const SignIn = () => {
             </div>
             <div className="mb-6 relative">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
               </label>
               <div className="relative">
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline relative"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 mb-3 leading-tight focus:outline-none focus:shadow-outline relative bg-base-300"
                   id="password"
                   type={showPass ? "text" : "password"}
                   placeholder="Enter your password"

@@ -67,20 +67,20 @@ const formData = new FormData();
   return (
     <>
       <div className="">
-        <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20  border-gradient">
+        <div className="bg-base-50 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20  border-gradient">
           <h1 className="text-center text-4xl font-bold uppercase mb-4">
             Class information
           </h1>
           <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="class-name"
               >
                 Class Name
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="class-name"
                 type="text"
                 placeholder="Enter your class name"
@@ -90,14 +90,14 @@ const formData = new FormData();
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="instructor-name"
               >
                 Instructor Name
               </label>
 
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="instructorName"
                 type="text"
                 value={user?.displayName}
@@ -107,13 +107,13 @@ const formData = new FormData();
             </div>
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="instructor-email"
               >
                 Instructor Email
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="instructor-email"
                 type="email"
                 value={user?.email}
@@ -124,13 +124,13 @@ const formData = new FormData();
 
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="available-seat"
               >
                 Available Seats
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="available-seat"
                 type="number"
                 placeholder="Enter your seats"
@@ -140,13 +140,13 @@ const formData = new FormData();
 
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="price"
               >
                 Price
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-500 mb-3 leading-tight focus:outline-none focus:shadow-outline bg-base-300"
                 id="price"
                 type="price"
                 placeholder="price"
@@ -156,12 +156,11 @@ const formData = new FormData();
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="image"
               >
                 Class image
               </label>
-             
 
               <input
                 type="file"

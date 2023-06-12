@@ -22,11 +22,7 @@ const Payment = () => {
   const [cart, cartRefetch] = useCart();
   const {id} = useParams()
   console.log(id);
-  // const price = cart.reduce((acc, cur) => {
-  //   acc += cur.price;
-  //   cartRefetch()
-  //   return acc;
-  // }, 0);
+
 
     const {
       data: classById = {},

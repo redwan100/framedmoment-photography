@@ -52,7 +52,7 @@ const Row = ({ index, userItem, refetch }) => {
   return (
     <>
       <tr
-        className={`odd:bg-slate-50 even:bg-slate-200 hover:bg-slate-300 ${
+        className={`odd:bg-base-200 even:bg-base-300 hover:bg-slate-300 ${
           email === "ridoneislam987@gmail.com" && "hidden"
         }`}
       >
@@ -69,14 +69,14 @@ const Row = ({ index, userItem, refetch }) => {
         <th className="">
           <button
             disabled={role === "instructor"}
-            className="btn btn-ghost btn-xs"
+            className="btn btn-ghost btn-xs bg-base-300"
             onClick={() => handleAdminInstructor("instructor")}
           >
             Instructor
           </button>
           <button
             disabled={role === "admin"}
-            className="btn btn-ghost btn-xs"
+            className="btn btn-ghost btn-xs bg-base-300"
             onClick={() => handleAdminInstructor("admin")}
           >
             Admin

@@ -6,7 +6,6 @@ import useCart from "../../../Hooks/useCard/useCard";
 import { useContext } from "react";
 import { AuthContext } from "../../../Context/ContextProvider";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
-import { Link } from "react-router-dom";
 
 const MySelectClass = () => {
 const {user, loading} = useContext(AuthContext)
@@ -21,7 +20,7 @@ const total = cart.reduce((acc, cur) =>{
 
   const {data: allClasses = [], refetch, isLoading} = useQuery({
     queryKey:['allClasses'],
-    enabled:!loading,
+    // enabled:!loading,
     queryFn: async() =>{
       const res = await axiosSecure.get(`/allSelectedCourse?email=${user?.email}`);
 

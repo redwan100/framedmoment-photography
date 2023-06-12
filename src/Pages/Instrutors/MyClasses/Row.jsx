@@ -13,7 +13,7 @@ const Row = ({ index, userItem }) => {
   } = userItem;
   return (
     <>
-      <tr className="odd:bg-slate-50 even:bg-slate-200 hover:bg-slate-300">
+      <tr className="odd:bg-base-300 even:bg-base-200 hover:bg-base-300">
         <th>{index + 1} </th>
         <td>
           <div className="avatar">

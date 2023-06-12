@@ -35,7 +35,7 @@ const Row = ({ course, index, refetch }) => {
 
   return (
     <>
-      <tr className="even:bg-slate-50 odd:bg-slate-200 hover:bg-slate-300">
+      <tr className="even:bg-base-300 odd:bg-base-200 hover:bg-base-300">
         <th>{index + 1} </th>
         <td>
           <div className="avatar">

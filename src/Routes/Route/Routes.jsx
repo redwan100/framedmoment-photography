@@ -13,9 +13,10 @@ import AddClass from "../../Pages/Instrutors/AddClass/AddClass";
 import MangeClass from "../../Pages/Dahsboard/ManageClasss/MangeClass";
 import MangeUser from "../../Pages/Dahsboard/MangeUser/MangeUser";
 import MySelectClass from "../../Pages/Dahsboard/Student/MySelectClass";
-import MyEnrolledClass from "../../Pages/Dahsboard/Student/MyEnrolledClass";
 import Payment from '../../Pages/Dahsboard/Student/Payment'
 import Feedback from "../../Pages/Shared/Feedback/Feedback";
+import PaymentHistory from "../../Pages/Dahsboard/Student/PaymentHistory/PaymentHistory";
+import MyEnrolledClass from "../../Pages/Dahsboard/Student/EnrolledClass/MyEnrolledClass";
 
 const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
       {
         path:'my-enrolled-class',
         element:<MyEnrolledClass />
+      },
+      {
+        path:'payment-history',
+        element:<PaymentHistory />
       },
       {
         path:'payment/:id',

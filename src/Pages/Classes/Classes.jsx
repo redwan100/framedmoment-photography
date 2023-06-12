@@ -22,7 +22,7 @@ const Classes = () => {
   return (
     <div className="py-12">
       {classes.length > 0 ? (
-        <div className="grid md:grid-cols-2 gap-3">
+        <div className="grid md:grid-cols-2 gap-5">
           {classes?.map((item) => (
             <ClassItem key={item._id} classes={item} />
           ))}

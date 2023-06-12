@@ -26,7 +26,7 @@ const Dashboard = () => {
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
+      <div className="drawer-content flex flex-col items-center my-8">
         {/* Page content here */}
         <Outlet />
 
@@ -84,7 +84,7 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li>
-                <Link to={"/dashboard/my-enrolled-class"}>
+                <Link to={"/dashboard/payment-history"}>
                   <MdHistory /> Payment History
                 </Link>
               </li>

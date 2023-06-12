@@ -13,8 +13,10 @@ const ClassItem = ({ classes }) => {
   const [, cartRefetch] = useCart()
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { _id, className, instructorName, image, price, availableSeat } =
+  const { _id, className, instructorName,instructorEmail, image, price, availableSeat } =
     classes;
+
+    console.log({classes});
 
   const handleBuyCourse = (course) => {
     /* ------------------ condition check user loggedIn or not ------------------ */
@@ -40,6 +42,7 @@ const ClassItem = ({ classes }) => {
        course_id:course._id,
        className, 
        instructorName, 
+       instructorEmail,
        image, 
        price, 
        availableSeat,
@@ -59,7 +62,7 @@ const ClassItem = ({ classes }) => {
   };
   return (
     <div
-      className={`card card-side grid lg:grid-cols-2 shadow-xl ${
+      className={`bg-base-300 card card-side grid lg:grid-cols-2 shadow-xl ${
         availableSeat == 0 && "bg-red-100 text-red-500 border border-red-300"
       }`}
     >
