@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/ContextProvider";
 import { toast } from "react-hot-toast";
+import {Bounce} from 'react-awesome-reveal'
+
+
 
 const SignUp = () => {
   const [error, setError] = useState("");
@@ -62,7 +65,7 @@ const SignUp = () => {
       .catch((err) => setError(err));
   };
   return (
-    <>
+    <Bounce>
       <div className="grid md:grid-cols-2 items-center min-h-[calc(100vh-200px)]">
         <div className="-z-10 max-w-sm mx-auto md:max-w-full">
           <Lottie animationData={signUpImg} loop={true} />
@@ -198,7 +201,7 @@ const SignUp = () => {
           <SocialLogin />
         </div>
       </div>
-    </>
+    </Bounce>
   );
 };
 

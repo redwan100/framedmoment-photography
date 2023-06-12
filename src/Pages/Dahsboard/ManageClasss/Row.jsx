@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import {Bounce, Slide} from 'react-awesome-reveal'
 // TODO: tanStackQuery
 
 const Row = ({ classList, index, refetch }) => {

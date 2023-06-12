@@ -127,9 +127,9 @@ const Navbar = () => {
             </ul>
           </div>
 
-          <Link to='/' className="btn btn-ghost normal-case text-xl">
-            
+          <Link to="/" className="btn btn-ghost normal-case text-xl">
             <img src={logo} alt="" className="w-12" />
+            <span className="hidden sm:block">FramedMoment</span>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">

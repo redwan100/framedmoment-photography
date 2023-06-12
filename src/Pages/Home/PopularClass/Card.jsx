@@ -1,10 +1,11 @@
+import { Slide } from "react-awesome-reveal";
 import { BsCart2 } from "react-icons/bs";
 import {Link} from 'react-router-dom'
 
 const Card = ({popular, isLayout}) => {
     const {className, image, instructorName} = popular;
   return (
-    <div className="card glass">
+    <Slide damping={0.6} className="card glass">
       <figure
         className={`h-[16rem] ${
           isLayout === "single" && "md:h-[30rem] lg:h-[35]"
@@ -24,7 +25,7 @@ const Card = ({popular, isLayout}) => {
           </Link>
         </div>
       </div>
-    </div>
+    </Slide>
   );
 }
 

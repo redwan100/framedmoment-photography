@@ -4,6 +4,7 @@ import Card from "./Card";
 import { CiGrid41 } from "react-icons/ci";
 import { CiGrid2H } from "react-icons/ci";
 
+
 const PopularClass = () => {
   const [isLayout, setIsLayout] = useState("grid");
   const [popularClass, setPopularClass] = useState([]);
