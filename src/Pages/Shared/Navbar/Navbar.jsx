@@ -9,6 +9,9 @@ import axios from "axios";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CiLight } from "react-icons/ci";
 import useCart from "../../../Hooks/useCard/useCard";
+import logo from '../../../assets/Logo/3.png'
+
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -123,7 +126,11 @@ const Navbar = () => {
               {options}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">FramedMoment</a>
+
+          <Link to='/' className="btn btn-ghost normal-case text-xl">
+            
+            <img src={logo} alt="" className="w-12" />
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 flex">{options}</ul>
@@ -146,7 +153,7 @@ const Navbar = () => {
               {user && (
                 <div className="flex items-center gap-4">
                   {user.photoURL ? (
-                    <Link to={'/dashboard/userInformation'}>
+                    <Link to={"/dashboard/userInformation"}>
                       <img
                         className="w-8 h-8 rounded-full ring-1 ring-teal-500 ring-offset-2 object-cover"
                         src={user.photoURL}
