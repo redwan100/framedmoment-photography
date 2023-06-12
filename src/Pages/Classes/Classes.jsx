@@ -7,9 +7,7 @@ const Classes = () => {
   const { data: classes = [], isLoading } = useQuery({
     queryKey: ["approved-class"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://framedmoments.vercel.app/approved-class"
-      );
+      const res = await axios.get("http://localhost:5000/approved-class");
 
       return res.data;
     },

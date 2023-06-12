@@ -16,7 +16,7 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-     formState: { errors },
+    formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
@@ -36,12 +36,12 @@ const SignUp = () => {
               name: data.name,
               email: data.email,
               photo: loggedUser?.photoURL,
-              password:data.password,
+              password: data.password,
               confirmPass: data.confirmPassword,
               role: "student",
             };
 
-            fetch("https://framedmoments.vercel.app/users", {
+            fetch("http://localhost:5000/users", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -68,7 +68,7 @@ const SignUp = () => {
           <Lottie animationData={signUpImg} loop={true} />
         </div>
 
-        <div className="bg-base-200 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full mx-auto border border-slate-400/20  border-gradient">
+        <div className="bg-base-200 shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-sm w-full mx-auto border border-slate-400/20  border-gradient">
           <h1 className="text-center text-4xl font-bold uppercase mb-4">
             Sign up
           </h1>
@@ -137,7 +137,7 @@ const SignUp = () => {
               </small>
             </div>
 
-            <div className="mb-6">
+            {/* <div className="mb-6">
               <label
                 className="block text-gray-500 text-sm font-bold mb-2"
                 htmlFor="confirm-password"
@@ -157,7 +157,7 @@ const SignUp = () => {
                   <span>Please type your password at least 6 character</span>
                 )}
               </small>
-            </div>
+            </div> */}
 
             <div className="mb-4">
               <label

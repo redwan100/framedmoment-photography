@@ -18,6 +18,7 @@ import Feedback from "../../Pages/Shared/Feedback/Feedback";
 import PaymentHistory from "../../Pages/Dahsboard/Student/PaymentHistory/PaymentHistory";
 import MyEnrolledClass from "../../Pages/Dahsboard/Student/EnrolledClass/MyEnrolledClass";
 import Error from "../../Pages/Error/Error";
+import UserInfo from "../../Pages/Shared/UserInfo/UserInfo";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
       {
         path:'feedback/:id',
         element:<Feedback />
+      },
+      {
+        path:'userInformation',
+        element:<UserInfo />
       },
     ]
   }

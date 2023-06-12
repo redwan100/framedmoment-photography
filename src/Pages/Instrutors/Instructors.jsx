@@ -6,9 +6,7 @@ const Instructors = () => {
   const { data: instructors = [], isLoading } = useQuery({
     queryKey: ["allInstructor"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://framedmoments.vercel.app/admin/instructors"
-      );
+      const res = await axios.get("http://localhost:5000/admin/instructors");
       console.log(res.data);
       return res.data;
     },

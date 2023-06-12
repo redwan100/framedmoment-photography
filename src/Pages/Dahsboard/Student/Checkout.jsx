@@ -28,7 +28,7 @@ const Checkout = ({ cart, classItem }) => {
   useEffect(() => {
     if (price > 0) {
       axios
-        .post(`https://framedmoments.vercel.app/create-payment-intent`, {
+        .post(`http://localhost:5000/create-payment-intent`, {
           price,
         })
         .then((res) => {
@@ -100,20 +100,18 @@ const Checkout = ({ cart, classItem }) => {
       };
       console.log({ _id, classItem });
 
-      axios
-        .post("https://framedmoments.vercel.app/payments", payment)
-        .then((res) => {
-          if (res.data.result.insertedId) {
-            console.log(res.data);
-            Swal.fire({
-              position: "top-center",
-              icon: "success",
-              title: "Payment success✅",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
+      axios.post("http://localhost:5000/payments", payment).then((res) => {
+        if (res.data.result.insertedId) {
+          console.log(res.data);
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Payment success✅",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
     }
 
     navigate("/dashboard/my-select-class");

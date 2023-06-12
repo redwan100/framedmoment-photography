@@ -28,7 +28,7 @@ const Row = ({ classList, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`https://framedmoments.vercel.app/class-status/${_id}`, {
+          .patch(`http://localhost:5000/class-status/${_id}`, {
             text,
           })
           .then((res) => {

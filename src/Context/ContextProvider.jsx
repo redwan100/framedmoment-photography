@@ -56,7 +56,7 @@ const ContextProvider = ({ children }) => {
 
       if (loggedUser) {
         axios
-          .post("https://framedmoments.vercel.app/jwt", {
+          .post("http://localhost:5000/jwt", {
             email: loggedUser.email,
           })
           .then((data) => {

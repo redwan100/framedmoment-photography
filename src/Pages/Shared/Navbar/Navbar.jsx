@@ -19,16 +19,15 @@ const Navbar = () => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
 
-
-
-  
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem(theme);
 
     document.querySelector("html").setAttribute("data-theme", localTheme);
-    
-  console.log(document.querySelector("html").setAttribute("data-theme", theme));
+
+    console.log(
+      document.querySelector("html").setAttribute("data-theme", theme)
+    );
   }, [theme]);
 
   const toggleTheme = () => {
@@ -39,12 +38,6 @@ const Navbar = () => {
       setTheme("light");
     }
   };
-
-
-
-
-
-
 
   const handleLogOut = () => {
     logOut().then(() => {
@@ -57,7 +50,7 @@ const Navbar = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axios.get(
-        `https://framedmoments.vercel.app/route-path/${user?.email}`
+        `http://localhost:5000/route-path/${user?.email}`
       );
 
       return res.data;
@@ -102,7 +95,6 @@ const Navbar = () => {
     </>
   );
 
-
   return (
     <div className="bg-base-300 shadow-md fixed top-0 left-0 z-50 w-full">
       <div className="navbar my-container">
@@ -131,7 +123,7 @@ const Navbar = () => {
               {options}
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">Logo</a>
+          <a className="btn btn-ghost normal-case text-xl">FramedMoment</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 flex">{options}</ul>
@@ -154,11 +146,13 @@ const Navbar = () => {
               {user && (
                 <div className="flex items-center gap-4">
                   {user.photoURL ? (
-                    <img
-                      className="w-8 h-8 rounded-full ring-1 ring-teal-500 ring-offset-2 object-cover"
-                      src={user.photoURL}
-                      referrerPolicy="no-referrer"
-                    />
+                    <Link to={'/dashboard/userInformation'}>
+                      <img
+                        className="w-8 h-8 rounded-full ring-1 ring-teal-500 ring-offset-2 object-cover"
+                        src={user.photoURL}
+                        referrerPolicy="no-referrer"
+                      />
+                    </Link>
                   ) : (
                     <FaRegUserCircle size={25} />
                   )}

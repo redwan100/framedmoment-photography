@@ -8,7 +8,7 @@ const PopularClass = () => {
   const [isLayout, setIsLayout] = useState("grid");
   const [popularClass, setPopularClass] = useState([]);
   useEffect(() => {
-    axios.get("https://framedmoments.vercel.app/popularClass").then((res) => {
+    axios.get("http://localhost:5000/popularClass").then((res) => {
       setPopularClass(res.data);
     });
   }, []);

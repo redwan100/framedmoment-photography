@@ -36,10 +36,10 @@ const ClassItem = ({ classes }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/sign-in");
-          return
+          return;
         }
       });
-      return
+      return;
     }
 
     const selectClassInfo = {
@@ -54,10 +54,7 @@ const ClassItem = ({ classes }) => {
     };
 
     axios
-      .post(
-        "https://framedmoments.vercel.app/userSelectedClass",
-        selectClassInfo
-      )
+      .post("http://localhost:5000/userSelectedClass", selectClassInfo)
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Successfully buy your course", { duration: 1500 });

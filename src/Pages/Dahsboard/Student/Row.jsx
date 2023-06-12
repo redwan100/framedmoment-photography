@@ -20,7 +20,7 @@ const Row = ({ course, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`https://framedmoments.vercel.app/selectedClasses/${id}`)
+          .delete(`http://localhost:5000/selectedClasses/${id}`)
           .then((res) => {
             console.log(res.data);
             if (res.data.deletedCount > 0) {

@@ -17,7 +17,7 @@ const useCart = () => {
 
     queryFn: async () => {
       const res = await axios.get(
-        `https://framedmoments.vercel.app/allSelectedCourse?email=${user?.email}`
+        `http://localhost:5000/allSelectedCourse?email=${user?.email}`
       );
       return res.data;
     },

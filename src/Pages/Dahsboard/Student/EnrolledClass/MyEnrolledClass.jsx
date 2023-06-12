@@ -14,7 +14,7 @@ const MyEnrolledClass = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `https://framedmoments.vercel.app/dashboard/paymentHistory?email=${user?.email}`
+        `http://localhost:5000/dashboard/paymentHistory?email=${user?.email}`
       );
 
       return res.data;

@@ -34,7 +34,7 @@ const AddClass = () => {
             availableSeat: parseFloat(data.availableSeat),
           };
           axios
-            .post("https://framedmoments.vercel.app/class", classInfo)
+            .post("http://localhost:5000/class", classInfo)
             .then((response) => {
               console.log(response);
               if (response.data.insertedId) {
