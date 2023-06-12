@@ -8,7 +8,7 @@ const PopularClass = () => {
   const [isLayout, setIsLayout] = useState("grid");
   const [popularClass, setPopularClass] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/popularClass").then((res) => {
+    axios.get("https://framedmoments.vercel.app/popularClass").then((res) => {
       setPopularClass(res.data);
     });
   }, []);
@@ -23,7 +23,6 @@ const PopularClass = () => {
         <h1 className="text-center text-3xl sm:text-4xl uppercase font-medium">
           Popular class
         </h1>
-        <p className="text-center text-xs sm:text-base">Find Courses and Specializations from top instructor</p>
       </div>
       <div className="rounded-md w-max my-2 ml-4 bg-slate-700 mr-3 flex gap-2">
         <span

@@ -17,11 +17,13 @@ import Payment from '../../Pages/Dahsboard/Student/Payment'
 import Feedback from "../../Pages/Shared/Feedback/Feedback";
 import PaymentHistory from "../../Pages/Dahsboard/Student/PaymentHistory/PaymentHistory";
 import MyEnrolledClass from "../../Pages/Dahsboard/Student/EnrolledClass/MyEnrolledClass";
+import Error from "../../Pages/Error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement:<Error />,
     children: [
       {
         path: "/",

@@ -10,7 +10,9 @@ const Row = ({ index, userItem }) => {
     className,
     price,
     feedback,
+    enrolled,
   } = userItem;
+
   return (
     <>
       <tr className="odd:bg-base-300 even:bg-base-200 hover:bg-base-300">
@@ -28,7 +30,7 @@ const Row = ({ index, userItem }) => {
 
         <td>${price}</td>
         <td className="text-center">{availableSeat}</td>
-        <td className="text-center">{0}</td>
+        <td className="text-center">{enrolled || 0}</td>
         <th className="">
           <button
             className={`btn btn-xs ${

@@ -1,12 +1,12 @@
 import axios from "axios";
 import Swal from "sweetalert2";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { LuTrash } from "react-icons/lu";
 import { useState } from "react";
 const Row = ({ course, index, refetch }) => {
   const { _id, className, instructorName, availableSeat, price, image } =
     course;
-    // TODO: tanStackQuery 
+  // TODO: tanStackQuery
 
   const handleDeleteClass = (id) => {
     Swal.fire({
@@ -20,13 +20,13 @@ const Row = ({ course, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/selectedClasses/${id}`)
+          .delete(`https://framedmoments.vercel.app/selectedClasses/${id}`)
           .then((res) => {
             console.log(res.data);
             if (res.data.deletedCount > 0) {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
 
-              refetch()
+              refetch();
             }
           });
       }

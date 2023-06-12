@@ -65,6 +65,7 @@ const SignIn = () => {
 
               <small className="text-red-500">
                 {errors.email && <span>Please type your email</span>}
+                
               </small>
             </div>
             <div className="mb-6 relative">
@@ -92,7 +93,8 @@ const SignIn = () => {
               </div>
 
               <small className="text-red-500">
-                {errors.email && <span>Please type your password</span>}
+                {errors.password && <span>Please type your password</span>}
+                {error}
               </small>
             </div>
             <div className="">

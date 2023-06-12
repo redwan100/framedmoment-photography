@@ -1,24 +1,24 @@
-import ClassItem from "./ClassItem"
-import { useQuery } from '@tanstack/react-query'
+import ClassItem from "./ClassItem";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Loading from "../Shared/Loading/Loading";
 
 const Classes = () => {
-
   const { data: classes = [], isLoading } = useQuery({
     queryKey: ["approved-class"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/approved-class");
+      const res = await axios.get(
+        "https://framedmoments.vercel.app/approved-class"
+      );
 
       return res.data;
     },
   });
 
-
-  if(isLoading){
-    return <Loading />
+  if (isLoading) {
+    return <Loading />;
   }
-  
+
   return (
     <div className="py-12">
       {classes.length > 0 ? (
@@ -28,10 +28,12 @@ const Classes = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center font-semibold my-8 text-3xl sm:text-4xl">No Data Found</p>
+        <p className="text-center font-semibold my-8 text-3xl sm:text-4xl">
+          No Data Found
+        </p>
       )}
     </div>
   );
-}
+};
 
-export default Classes
+export default Classes;

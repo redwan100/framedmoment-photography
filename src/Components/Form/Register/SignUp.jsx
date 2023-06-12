@@ -1,65 +1,66 @@
 import Lottie from "lottie-react";
-import signUpImg from '../../../assets/FormImg/signUp'
-import {Link, useLocation, useNavigate} from 'react-router-dom'
+import signUpImg from "../../../assets/FormImg/signUp";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../../../Pages/Shared/SocialLogin/SocialLogin";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/ContextProvider";
 import { toast } from "react-hot-toast";
 
-
 const SignUp = () => {
-   const [error, setError] = useState("");
-   const { createUser, updateUserProfile } = useContext(AuthContext);
-   const navigate = useNavigate()
-   const location = useLocation()
+  const [error, setError] = useState("");
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-   const {
-     register,
-     handleSubmit,
-    //  formState: { errors },
-   } = useForm();
+  const {
+    register,
+    handleSubmit,
+     formState: { errors },
+  } = useForm();
 
-   const onSubmit = (data) => {
-    
-     createUser(data.email, data.password)
-       .then((result) => {
-         const loggedUser = result.user;
+  const onSubmit = (data) => {
+    createUser(data.email, data.password)
+      .then((result) => {
+        const loggedUser = result.user;
 
-        
-         updateUserProfile(data.name, data.photoUrl)
-           .then(() => {
-             console.log(loggedUser, data.email, data.password, data.photoUrl);
-              toast.success("Successfully user create", { duration: 2000, position: "top-center" }) 
-              /* ----------------------- USER INFO SEND TO DATABASE ----------------------- */
-              const userInfo={
-                name: data.name,
-                email: data.email,
-                photo:loggedUser?.photoURL,
-                role:'student'
-              }
+        updateUserProfile(data.name, data.photoUrl)
+          .then(() => {
+            console.log(loggedUser, data.email, data.password, data.photoUrl);
+            toast.success("Successfully user create", {
+              duration: 2000,
+              position: "top-center",
+            });
+            /* ----------------------- USER INFO SEND TO DATABASE ----------------------- */
+            const userInfo = {
+              name: data.name,
+              email: data.email,
+              photo: loggedUser?.photoURL,
+              password:data.password,
+              confirmPass: data.confirmPassword,
+              role: "student",
+            };
 
-              fetch("http://localhost:5000/users", {
-                method:"POST",
-                headers: {
-                  'content-type': 'application/json'
-                },
-                body: JSON.stringify(userInfo)
-              })
-                .then((response) => response.json())
-                .then((result) => console.log(result))
-                .catch((error) => console.log("error", error));
-
-              navigate(from, {replace:true,})
+            fetch("https://framedmoments.vercel.app/users", {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(userInfo),
             })
-           .catch((err) => {
+              .then((response) => response.json())
+              .then((result) => console.log(result))
+              .catch((error) => console.log("error", error));
+
+            navigate(from, { replace: true });
+          })
+          .catch((err) => {
             console.log(err);
             setError(err);
-           });
-       })
-       .catch((err) => setError(err));
-    
-   };
+          });
+      })
+      .catch((err) => setError(err));
+  };
   return (
     <>
       <div className="grid md:grid-cols-2 items-center min-h-[calc(100vh-200px)]">
@@ -86,9 +87,9 @@ const SignUp = () => {
                 placeholder="Enter your name"
                 {...register("name", { required: true })}
               />
-              {/* <small className="text-red-500">
+              <small className="text-red-500">
                 {errors.name && <span>Please type your name </span>}
-              </small> */}
+              </small>
             </div>
 
             <div className="mb-4">
@@ -105,9 +106,9 @@ const SignUp = () => {
                 placeholder="Enter your email"
                 {...register("email", { required: true })}
               />
-              {/* <small className="text-red-500">
+              <small className="text-red-500">
                 {errors.email && <span>Please type your email</span>}
-              </small> */}
+              </small>
             </div>
             <div className="mb-6">
               <label
@@ -129,11 +130,11 @@ const SignUp = () => {
                 {...register("password", { required: true })}
               />
 
-              {/* <small className="text-red-500">
+              <small className="text-red-500">
                 {errors.password && (
                   <span>Please type your password at least 6 character</span>
                 )}
-              </small> */}
+              </small>
             </div>
 
             <div className="mb-6">
@@ -150,6 +151,12 @@ const SignUp = () => {
                 placeholder="Confirm password"
                 {...register("confirm-password", { required: true })}
               />
+
+              <small className="text-red-500">
+                {errors.password && (
+                  <span>Please type your password at least 6 character</span>
+                )}
+              </small>
             </div>
 
             <div className="mb-4">

@@ -2,10 +2,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
 
-
-
 const Row = ({ index, userItem, refetch }) => {
-  const [axiosSecure] = useAxiosSecure()
+  const [axiosSecure] = useAxiosSecure();
   const { _id, name, email, photo, role } = userItem;
   const handleAdminInstructor = (text) => {
     const instructorInfo = { name, email, photo, _id };
@@ -32,11 +30,12 @@ const Row = ({ index, userItem, refetch }) => {
                 timer: 1500,
               });
 
-              if(text === 'instructor'){
-                axios.post(`http://localhost:5000/admin/instructor`, {
-                  ...instructorInfo,
-                })
-                .then(res => console.log(res.data))
+              if (text === "instructor") {
+                axios
+                  .post(`https://framedmoments.vercel.app/admin/instructor`, {
+                    ...instructorInfo,
+                  })
+                  .then((res) => console.log(res.data));
               }
             }
 

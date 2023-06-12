@@ -8,7 +8,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   updateProfile,
-  
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import axios from "axios";
@@ -44,7 +43,7 @@ const ContextProvider = ({ children }) => {
   };
 
   const updateUserProfile = (name, photoUrl) => {
-    setLoading(true)
+    setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
       photoURL: photoUrl,
@@ -55,10 +54,9 @@ const ContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (loggedUser) => {
       setUser(loggedUser);
 
-
       if (loggedUser) {
         axios
-          .post("http://localhost:5000/jwt", {
+          .post("https://framedmoments.vercel.app/jwt", {
             email: loggedUser.email,
           })
           .then((data) => {

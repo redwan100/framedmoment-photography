@@ -4,41 +4,43 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/ContextProvider";
 import { toast } from "react-hot-toast";
 
-
 const useAxiosSecure = () => {
   const { logOut } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const axiosSecure = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "https://framedmoments.vercel.app",
   });
 
-  useEffect(() =>{
+  useEffect(() => {
     /* -------------------------- INTERCEPTORS REQUEST -------------------------- */
-    axiosSecure.interceptors.request.use((config) =>{
-        const token = localStorage.getItem('access-token')
-        
-        if(token){
-            config.headers.Authorization = `bearer ${token}`
+    axiosSecure.interceptors.request.use((config) => {
+      const token = localStorage.getItem("access-token");
+
+      if (token) {
+        config.headers.Authorization = `bearer ${token}`;
+      }
+      return config;
+    });
+
+    /* -------------------------- INTERCEPTORS RESPONSE -------------------------- */
+    axiosSecure.interceptors.response.use(
+      (response) => response,
+      async (err) => {
+        if (
+          err.response &&
+          (err.response.status === 401 || err.response.status === 403)
+        ) {
+          await logOut();
+          navigate("/sign-in");
         }
-        return config;
-    })
- 
-        /* -------------------------- INTERCEPTORS RESPONSE -------------------------- */
-        axiosSecure.interceptors.response.use((response) => response, async(err) =>{
-            if(err.response && (err.response.status === 401 || err.response.status === 403)){
-                await logOut()
-                navigate('/sign-in')
-            }
-           toast.error(err.response.error.message);
-            return Promise.reject(err)
-        })
+        toast.error(err.response.error.message);
+        return Promise.reject(err);
+      }
+    );
+  }, [axiosSecure, logOut, navigate]);
 
-
-  },[axiosSecure,logOut, navigate])
-
-  return [axiosSecure]
+  return [axiosSecure];
 };
-
 
 export default useAxiosSecure;

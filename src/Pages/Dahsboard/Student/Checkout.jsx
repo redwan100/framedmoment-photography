@@ -3,20 +3,21 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Context/ContextProvider";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
-
-const Checkout = ({  cart, classItem }) => {
+const Checkout = ({ cart, classItem }) => {
   const { user } = useContext(AuthContext);
-  const {  availableSeat,
-        className,
-        _id,
-        image,
-        instructorName,
-        instructorEmail,
-        course_id,
-        price} = classItem;
-        
+  const {
+    availableSeat,
+    className,
+    _id,
+    image,
+    instructorName,
+    instructorEmail,
+    course_id,
+    price,
+  } = classItem;
+
   const [cardError, setCardError] = useState("");
   const navigate = useNavigate();
   const stripe = useStripe();
@@ -27,7 +28,9 @@ const Checkout = ({  cart, classItem }) => {
   useEffect(() => {
     if (price > 0) {
       axios
-        .post(`http://localhost:5000/create-payment-intent`, { price })
+        .post(`https://framedmoments.vercel.app/create-payment-intent`, {
+          price,
+        })
         .then((res) => {
           console.log(res.data);
           setClientSecret(res.data.clientSecret);
@@ -91,14 +94,16 @@ const Checkout = ({  cart, classItem }) => {
         instructorName,
         instructorEmail,
         price,
-        classId:_id,
+        classId: _id,
         course_id,
         status: "pending",
       };
-      console.log({_id, classItem});
+      console.log({ _id, classItem });
 
-      axios.post("http://localhost:5000/payments", payment).then((res) => {
-        if (res.data.result.insertedId) {
+      axios
+        .post("https://framedmoments.vercel.app/payments", payment)
+        .then((res) => {
+          if (res.data.result.insertedId) {
             console.log(res.data);
             Swal.fire({
               position: "top-center",
@@ -107,9 +112,8 @@ const Checkout = ({  cart, classItem }) => {
               showConfirmButton: false,
               timer: 1500,
             });
-        }
-
-      });
+          }
+        });
     }
 
     navigate("/dashboard/my-select-class");

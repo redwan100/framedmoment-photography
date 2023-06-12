@@ -4,19 +4,24 @@ import { AuthContext } from "../../Context/ContextProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast";
 import useCart from "../../Hooks/useCard/useCard";
 
-
-
 const ClassItem = ({ classes }) => {
-  const [, cartRefetch] = useCart()
+  const [, cartRefetch] = useCart();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  const { _id, className, instructorName,instructorEmail, image, price, availableSeat } =
-    classes;
+  const {
+    _id,
+    className,
+    instructorName,
+    instructorEmail,
+    image,
+    price,
+    availableSeat,
+  } = classes;
 
-    console.log({classes});
+  console.log({ classes });
 
   const handleBuyCourse = (course) => {
     /* ------------------ condition check user loggedIn or not ------------------ */
@@ -31,34 +36,34 @@ const ClassItem = ({ classes }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/sign-in");
+          return
         }
       });
-
-     
+      return
     }
 
-     const selectClassInfo = {
-       
-       course_id:course._id,
-       className, 
-       instructorName, 
-       instructorEmail,
-       image, 
-       price, 
-       availableSeat,
-       email:user?.email
-     };
+    const selectClassInfo = {
+      course_id: course._id,
+      className,
+      instructorName,
+      instructorEmail,
+      image,
+      price,
+      availableSeat,
+      email: user?.email,
+    };
 
-     axios
-       .post("http://localhost:5000/userSelectedClass", selectClassInfo)
-       .then((res) => {
-         if(res.data.insertedId){
-          toast.success('Successfully buy your course',{duration:1500})
-          cartRefetch()
-         }
-       });
-
-       
+    axios
+      .post(
+        "https://framedmoments.vercel.app/userSelectedClass",
+        selectClassInfo
+      )
+      .then((res) => {
+        if (res.data.insertedId) {
+          toast.success("Successfully buy your course", { duration: 1500 });
+          cartRefetch();
+        }
+      });
   };
   return (
     <div
@@ -89,7 +94,7 @@ const ClassItem = ({ classes }) => {
             <button
               disabled={availableSeat == 0}
               className="btn bg-violet-700 text-white py-2 px-4 rounded-md flex items-center gap-2 ml-auto hover:bg-violet-800"
-              onClick={()=>handleBuyCourse(classes)}
+              onClick={() => handleBuyCourse(classes)}
             >
               Buy Course <AiOutlineShoppingCart />
             </button>

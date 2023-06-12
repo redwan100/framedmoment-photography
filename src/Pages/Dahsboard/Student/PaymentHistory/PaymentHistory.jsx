@@ -1,33 +1,32 @@
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure/useAxiosSecure";
-import {useQuery} from '@tanstack/react-query'
+import { useQuery } from "@tanstack/react-query";
 import Loading from "../../../Shared/Loading/Loading";
 import Row from "./Row";
 import { useContext } from "react";
 import { AuthContext } from "../../../../Context/ContextProvider";
 const PaymentHistory = () => {
-const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const [axiosSecure] = useAxiosSecure();
 
-  const {data:paymentHistory=[], isLoading} = useQuery({
-    queryKey:['paymentHistory', user?.email],
-    enabled:!!user?.email,
-    queryFn:async ()=>{
-     const res = await axiosSecure.get(
-       `http://localhost:5000/dashboard/paymentHistory?email=${user?.email}`
-     );
+  const { data: paymentHistory = [], isLoading } = useQuery({
+    queryKey: ["paymentHistory", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `https://framedmoments.vercel.app/dashboard/paymentHistory?email=${user?.email}`
+      );
 
-      return res.data
-    }
-  })
-
-
-  
+      return res.data;
+    },
+  });
 
   return (
     <div>
-      {paymentHistory.length > 0  && Array.isArray(paymentHistory) ? (
+      {paymentHistory.length > 0 && Array.isArray(paymentHistory) ? (
         <>
-          <h1 className="text-center text-3xl my-4 sm:text-4xl">Transaction Details</h1>
+          <h1 className="text-center text-3xl my-4 sm:text-4xl">
+            Transaction Details
+          </h1>
           <div>
             <div className="overflow-x-auto">
               <table className="table table-xs">
@@ -52,10 +51,10 @@ const {user} = useContext(AuthContext)
           </div>
         </>
       ) : (
-        <p>No data found</p>
+        <p className="text-center text-3xl font-medium my-8">No data found</p>
       )}
     </div>
   );
-}
+};
 
-export default PaymentHistory
+export default PaymentHistory;

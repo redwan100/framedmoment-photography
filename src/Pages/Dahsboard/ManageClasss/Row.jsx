@@ -2,11 +2,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
-// TODO: tanStackQuery 
+// TODO: tanStackQuery
 
 const Row = ({ classList, index, refetch }) => {
-
-
   const {
     _id,
     className,
@@ -17,8 +15,6 @@ const Row = ({ classList, index, refetch }) => {
     image,
     status,
   } = classList;
-
-
 
   const handleApproveDeny = (text) => {
     Swal.fire({
@@ -32,7 +28,9 @@ const Row = ({ classList, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`http://localhost:5000/class-status/${_id}`, { text })
+          .patch(`https://framedmoments.vercel.app/class-status/${_id}`, {
+            text,
+          })
           .then((res) => {
             if (res.data.modifiedCount > 0) {
               Swal.fire({
@@ -52,9 +50,6 @@ const Row = ({ classList, index, refetch }) => {
       }
     });
   };
-
-
-   
 
   return (
     <>
@@ -117,4 +112,4 @@ const Row = ({ classList, index, refetch }) => {
   );
 };
 
-export default Row
+export default Row;

@@ -10,13 +10,15 @@ const useCart = () => {
 
   const {
     data: cart = [],
-    refetch:cartRefetch,
+    refetch: cartRefetch,
     isLoading,
   } = useQuery({
-    queryKey: ["all-select-class", user?.email,],
+    queryKey: ["all-select-class", user?.email],
 
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/allSelectedCourse?email=${user?.email}`);
+      const res = await axios.get(
+        `https://framedmoments.vercel.app/allSelectedCourse?email=${user?.email}`
+      );
       return res.data;
     },
   });

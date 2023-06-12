@@ -1,68 +1,56 @@
-import  { useContext } from 'react'
-import { AuthContext } from '../../../Context/ContextProvider';
-import { useForm } from 'react-hook-form';
-import axios from 'axios'
-import Loading from '../../Shared/Loading/Loading';
-import toast from 'react-hot-toast'
-
-
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/ContextProvider";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import Loading from "../../Shared/Loading/Loading";
+import toast from "react-hot-toast";
 
 const img_hosting_token = import.meta.env.VITE_UPLOAD_TOKEN;
 
-
 const AddClass = () => {
-  const {user, loading} = useContext(AuthContext);
-const formData = new FormData();
- const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
+  const { user, loading } = useContext(AuthContext);
+  const formData = new FormData();
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
 
-
-
-  const {
-    register,
-    handleSubmit,
-    reset
-  } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
     // console.log(data);
-    
-    formData.append('image', data.image[0])
+
+    formData.append("image", data.image[0]);
     fetch(img_hosting_url, {
       method: "POST",
       body: formData,
     })
       .then((res) => res.json())
       .then((imgRes) => {
-        if(imgRes.success){
+        if (imgRes.success) {
           const image = imgRes.data.display_url;
-           const classInfo = {
-             ...data,
-             status: "pending",
-             image,
-             price: parseFloat(data.price),
-             availableSeat: parseFloat(data.availableSeat),
-           };
-            axios
-              .post("http://localhost:5000/class", classInfo)
-              .then((response) => {
-                console.log(response);
-                if(response.data.insertedId){
-                  toast.success('Successfully added your class',{duration:2000})
-                  reset()
-                }
-              })
-              .catch((error) => console.log("error", error));
+          const classInfo = {
+            ...data,
+            status: "pending",
+            image,
+            price: parseFloat(data.price),
+            availableSeat: parseFloat(data.availableSeat),
+          };
+          axios
+            .post("https://framedmoments.vercel.app/class", classInfo)
+            .then((response) => {
+              console.log(response);
+              if (response.data.insertedId) {
+                toast.success("Successfully added your class", {
+                  duration: 2000,
+                });
+                reset();
+              }
+            })
+            .catch((error) => console.log("error", error));
         }
-  
-       
       });
-
-
-   
   };
 
-  if(loading) {
-    return <Loading />
+  if (loading) {
+    return <Loading />;
   }
   return (
     <>
@@ -182,6 +170,6 @@ const formData = new FormData();
       </div>
     </>
   );
-}
+};
 
-export default AddClass
+export default AddClass;

@@ -6,7 +6,9 @@ const Instructors = () => {
   const { data: instructors = [], isLoading } = useQuery({
     queryKey: ["allInstructor"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:5000/admin/instructors");
+      const res = await axios.get(
+        "https://framedmoments.vercel.app/admin/instructors"
+      );
       console.log(res.data);
       return res.data;
     },
@@ -18,9 +20,7 @@ const Instructors = () => {
 
   return (
     <div className="py-8 my-8">
-     
       {instructors.length > 0 ? (
-        
         <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {instructors.map((instructor) => (
             <Card key={instructor._id} instructor={instructor} />

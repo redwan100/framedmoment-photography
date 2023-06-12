@@ -21,7 +21,6 @@ const MangeClass = () => {
        queryFn: async () => {
          const res = await axiosSecure.get("/all-classes");
 
-         console.log(res.data);
          return res.data;
        },
      });

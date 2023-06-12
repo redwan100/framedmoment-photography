@@ -14,11 +14,37 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { user, loading, logOut } = useContext(AuthContext);
   const [cart] = useCart();
-
-  const [theme, setTheme] = useState(
-    localStorage.getItem("") ? localStorage.getItem("theme") : "light"
-  );
   const [isShow, setIsShow] = useState(true);
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+
+
+
+  
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem(theme);
+
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+    
+  console.log(document.querySelector("html").setAttribute("data-theme", theme));
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setIsShow(!isShow);
+    if (isShow) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  };
+
+
+
+
+
+
 
   const handleLogOut = () => {
     logOut().then(() => {
@@ -31,7 +57,7 @@ const Navbar = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/route-path/${user?.email}`
+        `https://framedmoments.vercel.app/route-path/${user?.email}`
       );
 
       return res.data;
@@ -76,23 +102,6 @@ const Navbar = () => {
     </>
   );
 
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem(theme);
-    document.querySelector("html").setAttribute("data-theme", localTheme);
-    
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setIsShow(!isShow);
-    if (isShow) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
-
-  console.log(document.querySelector('html'));
 
   return (
     <div className="bg-base-300 shadow-md fixed top-0 left-0 z-50 w-full">

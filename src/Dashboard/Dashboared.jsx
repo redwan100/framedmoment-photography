@@ -10,9 +10,12 @@ import useAdmin from "../Hooks/useAdmin/useAdmin";
 import useInstructor from "../Hooks/useInstructor/useInstructor";
 import Loading from "../Pages/Shared/Loading/Loading";
 import useStudent from "../Hooks/useStudent/useStudent";
+import { useContext } from "react";
+import { AuthContext } from "../Context/ContextProvider";
 
 
 const Dashboard = () => {
+  const {user} = useContext(AuthContext)
   const [isAdmin, isAdminLoading] = useAdmin();
   const [isInstructor, isInstructorLoading] = useInstructor();
   const [isStudent, isStudentLoading] = useStudent();
@@ -40,56 +43,25 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 h-full bg-base-200 text-base-content">
-          {/* Sidebar content here */}
-          {isInstructor.instructor && (
-            <>
-              <li>
-                <Link to={"/dashboard/add-class"}>
-                  <GrInfo /> Add Class
-                </Link>
-              </li>
-              <li>
-                <Link to={"/dashboard/my-classes"}>
-                  <SiGoogleclassroom /> My Classes
-                </Link>
-              </li>
-            </>
-          )}
+          {/* USER INFO-------------------  */}
 
-          {isAdmin.admin && (
-            <>
-              <li>
-                <Link to={"/dashboard/manage-class"}>
-                  <SlGraduation /> Manage Class
-                </Link>
-              </li>
-              <li>
-                <Link to={"/dashboard/manage-user"}>
-                  <HiOutlineUsers /> Manage users
-                </Link>
-              </li>
-            </>
-          )}
-
-          {isStudent.student && (
-            <>
-              <li>
-                <Link to={"/dashboard/my-select-class"}>
-                  <BsBookmarks /> My select class
-                </Link>
-              </li>
-              <li>
-                <Link to={"/dashboard/my-enrolled-class"}>
-                  <HiOutlineUsers /> My Enrolled class
-                </Link>
-              </li>
-              <li>
-                <Link to={"/dashboard/payment-history"}>
-                  <MdHistory /> Payment History
-                </Link>
-              </li>
-            </>
-          )}
+          <div className="bg-base-100 py-8 rounded-md shadow-md shadow-base-200">
+            <div className="text-center space-y-2">
+              {user?.email && (
+                <div className="w-16 h-16 mx-auto">
+                  <img
+                    src={user?.photoURL}
+                    alt="user photo"
+                    className="w-full h-full object-cover rounded-full aspect-square ring-2 ring-slate-500"
+                  />
+                </div>
+              )}
+              <div>
+                <h1 className="text-2xl font-semibold">{user?.displayName || "No name"}</h1>
+                <h1>{user?.email}</h1>
+              </div>
+            </div>
+          </div>
 
           <div className="divider"></div>
           <li>
@@ -98,6 +70,59 @@ const Dashboard = () => {
               Home
             </Link>
           </li>
+
+          {/* Sidebar content here */}
+          <div>
+            {isInstructor.instructor && (
+              <>
+                <li>
+                  <Link to={"/dashboard/add-class"}>
+                    <GrInfo /> Add Class
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/dashboard/my-classes"}>
+                    <SiGoogleclassroom /> My Classes
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {isAdmin.admin && (
+              <>
+                <li>
+                  <Link to={"/dashboard/manage-class"}>
+                    <SlGraduation /> Manage Class
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/dashboard/manage-user"}>
+                    <HiOutlineUsers /> Manage users
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {isStudent.student && (
+              <>
+                <li>
+                  <Link to={"/dashboard/my-select-class"}>
+                    <BsBookmarks /> My select class
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/dashboard/my-enrolled-class"}>
+                    <HiOutlineUsers /> My Enrolled class
+                  </Link>
+                </li>
+                <li>
+                  <Link to={"/dashboard/payment-history"}>
+                    <MdHistory /> Payment History
+                  </Link>
+                </li>
+              </>
+            )}
+          </div>
         </ul>
       </div>
     </div>
