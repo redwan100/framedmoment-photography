@@ -1,11 +1,15 @@
 import { BsCart2 } from "react-icons/bs";
 import {Link} from 'react-router-dom'
 
-const Card = ({popular}) => {
-    const {className, image, instructorName, _id} = popular;
+const Card = ({popular, isLayout}) => {
+    const {className, image, instructorName} = popular;
   return (
     <div className="card glass">
-      <figure className="h-[20rem]">
+      <figure
+        className={`h-[16rem] ${
+          isLayout === "single" && "md:h-[30rem] lg:h-[35]"
+        } `}
+      >
         <img src={image} className="w-full h-full object-cover aspect-square" />
       </figure>
       <div className="card-body">
@@ -13,7 +17,7 @@ const Card = ({popular}) => {
         <p>Instructor: {instructorName}</p>
         <div className="card-actions justify-end">
           <Link to={`/classes/`}>
-            <button className="btn btn-sm">
+            <button className={`btn ${isLayout === "single" ? "btn-md" : "btn-sm"}`}>
               Buy Now
               <BsCart2 />
             </button>
