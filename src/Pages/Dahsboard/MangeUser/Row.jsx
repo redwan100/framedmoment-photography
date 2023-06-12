@@ -32,7 +32,7 @@ const Row = ({ index, userItem, refetch }) => {
 
               if (text === "instructor") {
                 axios
-                  .post(`http://localhost:5000/admin/instructor`, {
+                  .post(`https://framedmoments.vercel.app/admin/instructor`, {
                     ...instructorInfo,
                   })
                   .then((res) => console.log(res.data));

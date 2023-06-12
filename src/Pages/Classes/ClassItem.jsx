@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 import useCart from "../../Hooks/useCard/useCard";
 import { Slide } from "react-awesome-reveal";
 
-
 const ClassItem = ({ classes }) => {
   const [, cartRefetch] = useCart();
   const { user } = useContext(AuthContext);
@@ -56,7 +55,10 @@ const ClassItem = ({ classes }) => {
     };
 
     axios
-      .post("http://localhost:5000/userSelectedClass", selectClassInfo)
+      .post(
+        "https://framedmoments.vercel.app/userSelectedClass",
+        selectClassInfo
+      )
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Successfully buy your course", { duration: 1500 });

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import {Bounce, Slide} from 'react-awesome-reveal'
+import { Bounce, Slide } from "react-awesome-reveal";
 // TODO: tanStackQuery
 
 const Row = ({ classList, index, refetch }) => {
@@ -28,7 +28,7 @@ const Row = ({ classList, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .patch(`http://localhost:5000/class-status/${_id}`, {
+          .patch(`https://framedmoments.vercel.app/class-status/${_id}`, {
             text,
           })
           .then((res) => {

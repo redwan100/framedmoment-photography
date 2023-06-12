@@ -9,9 +9,7 @@ import axios from "axios";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CiLight } from "react-icons/ci";
 import useCart from "../../../Hooks/useCard/useCard";
-import logo from '../../../assets/Logo/3.png'
-
-
+import logo from "../../../assets/Logo/3.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -53,7 +51,7 @@ const Navbar = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/route-path/${user?.email}`
+        `https://framedmoments.vercel.app/route-path/${user?.email}`
       );
 
       return res.data;

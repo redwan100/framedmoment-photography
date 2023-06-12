@@ -4,12 +4,11 @@ import Card from "./Card";
 import { CiGrid41 } from "react-icons/ci";
 import { CiGrid2H } from "react-icons/ci";
 
-
 const PopularClass = () => {
   const [isLayout, setIsLayout] = useState("grid");
   const [popularClass, setPopularClass] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/popularClass").then((res) => {
+    axios.get("https://framedmoments.vercel.app/popularClass").then((res) => {
       setPopularClass(res.data);
     });
   }, []);

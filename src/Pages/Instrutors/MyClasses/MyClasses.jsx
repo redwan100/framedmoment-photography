@@ -13,7 +13,7 @@ const MyClasses = () => {
     enabled: !loading && !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `http://localhost:5000/instructor-classes/${user?.email}`
+        `https://framedmoments.vercel.app/instructor-classes/${user?.email}`
       );
       console.log(res.data);
       return res.data;

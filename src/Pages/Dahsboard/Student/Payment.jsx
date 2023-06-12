@@ -29,7 +29,7 @@ const Payment = () => {
     enabled: !loading,
     queryFn: async () => {
       const res = await axios.get(
-        `http://localhost:5000/selectClassById/${id}`
+        `https://framedmoments.vercel.app/selectClassById/${id}`
       );
       console.log(res.data);
       return res.data;

@@ -6,9 +6,7 @@ import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../Context/ContextProvider";
 import { toast } from "react-hot-toast";
-import {Bounce} from 'react-awesome-reveal'
-
-
+import { Bounce } from "react-awesome-reveal";
 
 const SignUp = () => {
   const [error, setError] = useState("");
@@ -44,7 +42,7 @@ const SignUp = () => {
               role: "student",
             };
 
-            fetch("http://localhost:5000/users", {
+            fetch("https://framedmoments.vercel.app/users", {
               method: "POST",
               headers: {
                 "content-type": "application/json",

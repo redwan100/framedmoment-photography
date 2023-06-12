@@ -1,27 +1,27 @@
 import { useContext } from "react";
-import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure"
-import {useQuery} from '@tanstack/react-query'
+import useAxiosSecure from "../../../Hooks/useAxiosSecure/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "../../../Context/ContextProvider";
 import { Link } from "react-router-dom";
 import Loading from "../Loading/Loading";
 const UserInfo = () => {
-    const [axiosSecure] = useAxiosSecure();
-    const {user} = useContext(AuthContext)
-    const {data:userInfo={}, isLoading} = useQuery({
-        queryKey:['userInformation', user?.email],
-        queryFn: async () => {
-            const res = await axiosSecure.get(
-              `http://localhost:5000/userInformation/${user?.email}`
-            );
+  const [axiosSecure] = useAxiosSecure();
+  const { user } = useContext(AuthContext);
+  const { data: userInfo = {}, isLoading } = useQuery({
+    queryKey: ["userInformation", user?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `https://framedmoments.vercel.app/userInformation/${user?.email}`
+      );
 
-            console.log(res.data);
-            return res.data;
-        }
-    })
+      console.log(res.data);
+      return res.data;
+    },
+  });
 
-    if(isLoading){
-        return <Loading />
-    }
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <div>
       <div className="card w-96 bg-base-100 shadow-xl image-full">
@@ -33,7 +33,7 @@ const UserInfo = () => {
           <p>Email: {userInfo.email}</p>
           <p>Password: {userInfo?.password || "*****"}</p>
           <div className="card-actions justify-end">
-            <Link to={'/'}>
+            <Link to={"/"}>
               <button className="btn btn-sm">Back to Home</button>
             </Link>
           </div>
@@ -41,6 +41,6 @@ const UserInfo = () => {
       </div>
     </div>
   );
-}
+};
 
-export default UserInfo
+export default UserInfo;
