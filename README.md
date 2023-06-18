@@ -18,7 +18,7 @@ https://dragon-news-60a28.web.app/
 
 # What i use to develop this website
 ---
-##Frond-End
+## Frond-End
 ### Languages
 * JavaScript
 * Reactjs 
